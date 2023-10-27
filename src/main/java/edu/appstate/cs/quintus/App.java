@@ -1,4 +1,4 @@
-package edu.appstate.cs.projectname;
+package edu.appstate.cs.quintus;
 
 /**
  * Hello world!
@@ -6,6 +6,10 @@ package edu.appstate.cs.projectname;
  */
 public class App 
 {
+    public static int sum(int x, int y) {
+        return x + y;
+    }
+
     public static void main( String[] args )
     {
         System.out.println( "Jack is NOT a bisnessman" );
