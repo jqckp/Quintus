@@ -1,17 +1,21 @@
 package edu.appstate.cs.quintus;
+import java.util.Scanner;
 
 /**
- * A maze game.
+ * UserInput
+ * 
  * 
  * @author Oscar Silva
  * @version 11/2/2023
  *
  */
 
-public class userInput {
+public class UserInput 
+{
+    private Scanner scanner;
     
-    public userInput()
+    public UserInput()
     {
-
+        scanner = new Scanner(System.in);
     }
 }
