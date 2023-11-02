@@ -26,7 +26,7 @@ public class Input
     }
 
 
-    public readFlightRange(Scanner dateReader)
+    public void readFlightRange(Scanner dateReader)
     {
 
     }
