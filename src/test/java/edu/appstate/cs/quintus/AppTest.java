@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AppTest
 {
+<<<<<<< HEAD
     //@Test
     //public void testApp()
     //{
@@ -25,4 +26,7 @@ public class AppTest
         assertEquals(2.0, Lower.lower(2.0,4.0), "2.0 is lower than 4.0");
         assertEquals(2.0, Lower.lower(4.0,2.0), "4.0 is higher than 2.0");
     }
+=======
+    
+>>>>>>> 66d9d76 (Rebase Test)
 }
