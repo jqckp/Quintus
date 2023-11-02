@@ -11,7 +11,7 @@ public class Lower
 {
     /**
      * This method compares "o" (the original/previous lowest vale) with
-     * "n" (the new value to be compared).
+     * "n" (the new value to be compared). 
      * 
      * @param o - the original value (first or previous lowes).
      * @param n - the new value to be compared.
@@ -19,16 +19,10 @@ public class Lower
      */
     public static double lower(double o, double n)
     {
-        double ret = 0.0;
         if (o <= n)
         {
-            ret = o;
+            n = o;
         }
-        else if (o > n)
-        {
-            ret = n;
-        }
-        
-        return ret;
+        return n;
     }
 }
