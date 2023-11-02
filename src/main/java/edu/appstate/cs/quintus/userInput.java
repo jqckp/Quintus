@@ -13,13 +13,14 @@ import java.util.Scanner;
  *
  */
 
-public class UserInput {
+public class userInput 
+{
 
     private String startDate;
     private String endDate;
 
     
-    public UserInput()
+    public userInput()
     {
 
     }
