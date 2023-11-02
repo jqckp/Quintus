@@ -1,7 +1,7 @@
 package edu.appstate.cs.quintus;
 
-import java.util.FileWriter;
-import java.util.scanner;
+import java.io.FileWriter;
+import java.util.Scanner;
 
 
 
@@ -13,13 +13,13 @@ import java.util.scanner;
  *
  */
 
-public class userInput {
+public class UserInput {
 
     private String startDate;
     private String endDate;
 
     
-    public userInput()
+    public UserInput()
     {
 
     }
