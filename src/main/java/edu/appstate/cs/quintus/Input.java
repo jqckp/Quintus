@@ -1,6 +1,5 @@
 package edu.appstate.cs.quintus;
 
-import java.io.FileWriter;
 import java.util.Scanner;
 
 
@@ -20,9 +19,17 @@ public class Input
     private String endDate;
 
     
-    public Input()
+public Input() 
     {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter start date:");
+        String start = scan.nextLine();
+        setStartDate(start);
+        System.out.println("Enter end date:");
+        String end = scan.nextLine();
+        setEndDate(end);
 
+        scan.close();            
     }
 
 
