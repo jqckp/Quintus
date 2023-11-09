@@ -1,5 +1,4 @@
 package edu.appstate.cs.quintus;
-
 /**
  * This class contains the method for finding the lowest value
  * between two doubles. 
@@ -24,5 +23,39 @@ public class Lower
             n = o;
         }
         return n;
+    }
+
+
+    //this is assuming that all data is correct
+    /*
+     * Lowest first is a class that takes an array of the Flight object
+     * and orders them using a selection sort (lowest to hightest).
+     * 
+     * @author Andrew Turpin
+     * @version 11/9/2023
+     */
+    public static Flight[] lowestFirst(Flight[] arr)
+    {
+        Flight[] narr = arr;
+        //Flight lowest = narr[0];
+        
+        for (int i = 0; i < narr.length - 1; i++)
+        {
+            int minIndex = i;
+            for (int j = i + 1; j <= narr.length; j++)
+            {
+                if (narr[j].getCost() < narr[minIndex].getCost())
+                {
+                    minIndex = j;
+                }
+            }
+
+            Flight temp = narr[minIndex];
+            narr[minIndex] = narr[i];
+            narr[i] = temp;
+
+        }
+
+        return narr;
     }
 }
