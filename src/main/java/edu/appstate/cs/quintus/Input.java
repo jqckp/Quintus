@@ -19,7 +19,7 @@ public class Input
     private String endDate;
 
     
-public Input() 
+    public Input() 
     {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter start date:");
