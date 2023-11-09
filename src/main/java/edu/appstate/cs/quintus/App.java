@@ -14,6 +14,7 @@ public class App
         try
         {
             Input input = new Input();
+            Lower lower = new Lower();
 
             File file = new File("flight_data.txt");
             
@@ -31,8 +32,21 @@ public class App
                 flights[i] = new Flight(arr[0], arr[1], arr[2], Double.parseDouble(arr[3]));
                 i++;
             }
+            
+            // This is spagetti code becasue of this V
+            // System.out.println(Lower.lowestFirst(flights)[0].toString());
+            //System.out.println(Lower.lowestFirst(flights)[1].toString());
+            //System.out.println(Lower.lowestFirst(flights)[2].toString());
+            //System.out.println(Lower.lowestFirst(flights)[69].toString());
+            // We don't know why, but we start at one. - Sai, Oscar Andrew
 
-            System.out.println("There are " + i + " results");
+            Flight[] fArr = Lower.lowestFirst(flights);
+
+            for(int j = 0; j < fArr.length; j++)
+            {
+                
+                System.out.println(fArr[j]);
+            }
 
             s.close();
         }

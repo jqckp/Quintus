@@ -39,11 +39,11 @@ public class Lower
     {
         Flight[] narr = arr;
         //Flight lowest = narr[0];
-        
+        int minIndex = 0;
         for (int i = 0; i < narr.length - 1; i++)
         {
-            int minIndex = i;
-            for (int j = i + 1; j <= narr.length; j++)
+            
+            for (int j = i + 1; j < narr.length; j++)
             {
                 if (narr[j].getCost() < narr[minIndex].getCost())
                 {
