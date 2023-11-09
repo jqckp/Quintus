@@ -39,6 +39,7 @@ public class App
             //System.out.println(Lower.lowestFirst(flights)[2].toString());
             //System.out.println(Lower.lowestFirst(flights)[69].toString());
             // We don't know why, but we start at one. - Sai, Oscar Andrew
+            // We fixed it :), for memories - Sai, Oscar Andrew
 
             Flight[] fArr = Lower.lowestFirst(flights);
 
