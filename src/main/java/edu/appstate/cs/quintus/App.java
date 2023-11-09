@@ -12,7 +12,7 @@ public class App
         {
             Input input = new Input();
 
-            File file = new File("delta.txt");
+            File file = new File("flight_data.txt");
             
             Scanner s = new Scanner(file);
 
