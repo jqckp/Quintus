@@ -17,6 +17,7 @@ public class Input
 
     private String startDate;
     private String endDate;
+    private String cost;
 
     
     public Input() 
@@ -28,19 +29,22 @@ public class Input
         System.out.println("Enter end date:");
         String end = scan.nextLine();
         setEndDate(end);
+        System.out.println("Enter in your max price limit:");
+        String cost = scan.nextLine();
+        setCost(cost);
 
         scan.close();            
     }
 
 
-    public void readFlightRange(Scanner dateReader)
-    {
-
-    }
-
     public String getStartDate()
     {
         return startDate;
+    }
+
+    public String getCost()
+    {
+        return cost;
     }
 
     public String getEndDate()
@@ -51,6 +55,10 @@ public class Input
     public void setStartDate(String startDate)
     {
         this.startDate = startDate;
+    }
+    public void setCost(String cost)
+    {
+        this.cost = cost;
     }
 
     public void setEndDate(String endDate)

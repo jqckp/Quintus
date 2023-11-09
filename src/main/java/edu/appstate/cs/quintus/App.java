@@ -2,7 +2,7 @@ package edu.appstate.cs.quintus;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.*;
 
 public class App 
 {
@@ -18,19 +18,18 @@ public class App
 
             int i = 0;
             String dataValue;
-            String start = input.getStartDate();
-            String end = input.getEndDate();
+            String[] arr;
+            Flight[] flights = new Flight[70];
 
             while (s.hasNextLine())
             {
                 dataValue = s.nextLine();
-                if(dataValue.equals(start + " " + end))
-                {
-                    i++;
-                }
+                arr = dataValue.split(" ");
+                flights[i] = new Flight(arr[0], arr[1], arr[2], Double.parseDouble(arr[3]));
+                i++;
             }
-    
-            System.out.println("There are " + i + " flights that match with your inputs");
+
+            System.out.println("There are " + i + " results");
 
             s.close();
         }
