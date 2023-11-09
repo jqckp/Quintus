@@ -23,13 +23,13 @@ public class Input
     public Input() 
     {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter start date:");
+        System.out.print("Enter start date:");
         String start = scan.nextLine();
         setStartDate(start);
-        System.out.println("Enter end date:");
+        System.out.print("Enter end date:");
         String end = scan.nextLine();
         setEndDate(end);
-        System.out.println("Enter in your max price limit:");
+        System.out.print("Enter in your max price limit:");
         String cost = scan.nextLine();
         setCost(cost);
 
