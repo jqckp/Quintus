@@ -15,22 +15,21 @@ public class App
             File file = new File("flight_data.txt");
             
             Scanner s = new Scanner(file);
-
-            int i = 0;
             String dataValue;
             String start = input.getStartDate();
             String end = input.getEndDate();
+            String[] arr = new String[4];
+            Flight flight;
 
             while (s.hasNextLine())
             {
                 dataValue = s.nextLine();
-                if(dataValue.equals(start + " " + end))
-                {
-                    i++;
-                }
+                arr = dataValue.split(" ");
+                flight = new Flight(arr[0],arr[1],arr[2],Double.parseDouble(arr[3]));
+                System.out.println(flight.toString());
             }
     
-            System.out.println("There are " + i + " flights that match with your inputs");
+            
 
             s.close();
         }

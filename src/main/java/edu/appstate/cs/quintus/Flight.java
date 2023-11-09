@@ -62,4 +62,10 @@ public class Flight
     {
         return this.cost;
     }
+
+    public String toString()
+    {
+        String str = "$" + getCost() + " " + getAirline() + " " + getStartDate() + " " + getReturnData();
+        return str;
+    }
 }
