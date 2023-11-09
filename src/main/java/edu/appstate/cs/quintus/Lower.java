@@ -33,6 +33,7 @@ public class Lower
      * 
      * @author Andrew Turpin
      * @version 11/9/2023
+     * @return narr - the new array
      */
     public static Flight[] lowestFirst(Flight[] arr)
     {
