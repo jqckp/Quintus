@@ -6,6 +6,9 @@ import java.util.*;
 
 public class App 
 {
+   /**
+    * This is the main method
+    */   
    public static void main(String[] args)
    {
         try
@@ -37,6 +40,10 @@ public class App
         catch (FileNotFoundException e)
         {
             e.printStackTrace();
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println("Error: Index out of bounds");
         }
     }
 }
