@@ -23,10 +23,10 @@ public class Input
     public Input() 
     {
         Scanner scan = new Scanner(System.in);
-        System.out.print("Enter start date:");
+        System.out.print("Enter start date ('mm/dd/yyyy'):");
         String start = scan.nextLine();
         setStartDate(start);
-        System.out.print("Enter end date:");
+        System.out.print("Enter end date ('mm/dd/yyyy'):");
         String end = scan.nextLine();
         setEndDate(end);
         System.out.print("Enter in your max price limit:");

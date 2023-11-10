@@ -45,10 +45,14 @@ public class App
 
             for(int j = 0; j < fArr.length; j++)
             {
+                if(input.getStartDate().equals(fArr[j].getStartDate()) && input.getEndDate().equals(fArr[j].getReturnDate())
+                   && Double.parseDouble(input.getCost()) > fArr[j].getCost())
+                   {
+                    System.out.println(fArr[j].toString());
+                   }
                 
-                System.out.println(fArr[j]);
             }
-
+            
             s.close();
         }
 

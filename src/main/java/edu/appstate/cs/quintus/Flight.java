@@ -65,9 +65,9 @@ public class Flight
         return this.cost;
     }
 
-    public String toString(Flight flight)
+    public String toString()
     {
-        return String.format("Cost: %d | Departure Date %s | Return Date %s | Airline: %s",
-            flight.getCost(), flight.getStartDate(), flight.getReturnDate(), flight.getAirline());
+        return String.format("Cost: %.2f | Departure Date %s | Return Date %s | Airline: %s",
+            getCost(), getStartDate(), getReturnDate(), getAirline());
     }
 }
