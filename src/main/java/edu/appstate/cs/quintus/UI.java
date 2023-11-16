@@ -4,12 +4,11 @@ import javafx.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class UI extends Application {
+public class UI  {
 
-    @Override
-    public void start(Stage arg0) throws Exception {
+    public UI()
+    {
         
-        throw new UnsupportedOperationException("Unimplemented method 'start'");
     }
     
 
