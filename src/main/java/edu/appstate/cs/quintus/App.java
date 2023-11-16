@@ -3,34 +3,40 @@ package edu.appstate.cs.quintus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import javafx.*;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class App 
+
+public class App extends Application
 {
    /**
     * This is the main method
     */   
    public static void main(String[] args)
    {
+        launch(args);
+
+
+
         try
         {
             Input input = new Input();
-            Lower lower = new Lower();
+            
 
             File file = new File("flight_data.txt");
             
             Scanner s = new Scanner(file);
 
-            int i = 0;
             String dataValue;
             String[] arr;
-            Flight[] flights = new Flight[70];
+            LinkedList<Flight> flights = new LinkedList<>();
 
             while (s.hasNextLine())
             {
                 dataValue = s.nextLine();
                 arr = dataValue.split(" ");
-                flights[i] = new Flight(arr[0], arr[1], arr[2], Double.parseDouble(arr[3]));
-                i++;
+                flights.add(new Flight(arr[0], arr[1], arr[2], Double.parseDouble(arr[3])));
             }
             
             // This is spagetti code becasue of this V
@@ -41,15 +47,36 @@ public class App
             // We don't know why, but we start at one. - Sai, Oscar Andrew
             // We fixed it :), for memories - Sai, Oscar Andrew
 
-            Flight[] fArr = Lower.lowestFirst(flights);
 
-            for(int j = 0; j < fArr.length; j++)
+            
+
+            Lower.mergeSortFlights(flights);
+
+            int i = 0;
+            for (Flight flight : flights)
             {
-                if(input.getStartDate().equals(fArr[j].getStartDate()) && input.getEndDate().equals(fArr[j].getReturnDate())
-                   && Double.parseDouble(input.getCost()) > fArr[j].getCost())
-                   {
-                    System.out.println(fArr[j].toString());
-                   }
+                System.out.println(flight);
+                i++;
+            }
+
+            System.out.println(i);
+
+            System.exit(0);
+            
+
+            Iterator<Flight> itr = flights.iterator();
+
+
+            while (itr.hasNext())
+            {
+                Flight flight = itr.next();
+
+                if(input.getStartDate().equals(flight.getStartDate()) &&
+                    input.getEndDate().equals(flight.getReturnDate())
+                         && Double.parseDouble(input.getCost()) > flight.getCost())
+                {         
+                    System.out.println(flight.toString());
+                }
                 
             }
             
@@ -65,4 +92,12 @@ public class App
             System.out.println("Error: Index out of bounds");
         }
     }
+
+@Override
+public void start(Stage stage) throws Exception 
+{
+    UI userInterface = new UI();
+
+    stage.show();
+}
 }

@@ -1,4 +1,6 @@
 package edu.appstate.cs.quintus;
+
+
 /**
  * This class contains the method for finding the lowest value
  * between two doubles. 
@@ -6,6 +8,13 @@ package edu.appstate.cs.quintus;
  * @author Andrew Tuprin
  * @version 11/2/2023
  */
+
+import java.util.LinkedList;
+import java.util.*;
+
+
+
+
 public class Lower 
 {
     /**
