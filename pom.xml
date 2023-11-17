@@ -14,8 +14,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.target>11</maven.compiler.target>
     <maven.compiler.source>11</maven.compiler.source>
-    <javafx.version>19.0.2.1</javafx.version>
-    <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+    <javafx.version>11</javafx.version>
+    <javafx.maven.plugin.version>0.0.3</javafx.maven.plugin.version>
 
   </properties>
 
@@ -106,15 +106,21 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <version>3.12.1</version>
+
+      </plugin>
+
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <version>${javafx.maven.plugin.version}</version>
+        <configuration>
+          <mainClass>edu.appstate.cs.quintus.App</mainClass>
+        </configuration>
 
       </plugin>
 
       
-    </plugin>
+    
     
     </plugins>
   </build>
