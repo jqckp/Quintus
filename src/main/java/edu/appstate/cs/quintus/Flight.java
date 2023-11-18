@@ -17,6 +17,11 @@ public class Flight
         cost = 0.0;
     }
 
+    public Flight(double cost)
+    {
+        setCost(cost);
+    }
+
     public Flight(String startDate, String returnDate, String airline, double cost)
     {
         setStartDate(startDate);
@@ -24,6 +29,9 @@ public class Flight
         setAirline(airline);
         setCost(cost);
     }
+
+
+    
 
     public void setStartDate(String startDate)
     {
