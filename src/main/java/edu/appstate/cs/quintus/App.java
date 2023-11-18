@@ -3,7 +3,6 @@ package edu.appstate.cs.quintus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
-import javafx.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -50,7 +49,7 @@ public class App extends Application
 
             
 
-            Lower.mergeSortFlights(flights);
+            //Lower.mergeSortFlights(flights);
 
             int i = 0;
             for (Flight flight : flights)
@@ -96,7 +95,7 @@ public class App extends Application
 @Override
 public void start(Stage stage) throws Exception 
 {
-    UI userInterface = new UI();
+    UI userInterface = new UI(stage);
 
     stage.show();
 }
