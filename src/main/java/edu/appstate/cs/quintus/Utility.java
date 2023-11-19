@@ -31,6 +31,11 @@ public class Utility
         flights.add(new Flight(500));
         flights.add(new Flight(100));
         flights.add(new Flight(260));
+        flights.add(new Flight(79));
+        flights.add(new Flight(111));
+        
+        
+
         
 
         
@@ -148,7 +153,7 @@ public class Utility
      * 
      * @param leftSub - Left half of the linked list.
      * @param rightSub - Right half of the linked list.
-     * @param flights - Merge two halves into this linked list.
+     * @param flights - Put two halves into this linked list.
      */
     private static void merge(LinkedList<Flight> leftSub,
          LinkedList<Flight> rightSub, LinkedList<Flight> flights)
@@ -169,7 +174,7 @@ public class Utility
                 if (leftElement.getCost() <= rightElement.getCost())
                 {
                 
-                    flights.add(startingIndex++, leftElement);
+                    flights.set(startingIndex++, leftElement);
                     leftIndex++;
 
                 }
@@ -177,7 +182,7 @@ public class Utility
                 else
                 {
 
-                    flights.add(startingIndex++, rightElement);
+                    flights.set(startingIndex++, rightElement);
                     rightIndex++;
 
                 }
@@ -186,12 +191,12 @@ public class Utility
 
             while (leftIndex < leftSub.size())
             {
-                flights.add(startingIndex++, leftSub.get(leftIndex++));
+                flights.set(startingIndex++, leftSub.get(leftIndex++));
             }
 
             while (rightIndex < rightSub.size())
             {
-                flights.add(startingIndex++, rightSub.get(rightIndex++));
+                flights.set(startingIndex++, rightSub.get(rightIndex++));
             }
 
 
