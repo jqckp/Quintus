@@ -1,6 +1,8 @@
 package edu.appstate.cs.quintus;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
 /**
  * This class contains the method for finding the lowest value
  * between two doubles. 
@@ -31,7 +33,7 @@ public class Utility
         flights.add(new Flight(500));
         flights.add(new Flight(100));
         flights.add(new Flight(260));
-        flights.add(new Flight(79));
+        flights.add(new Flight(101));
         flights.add(new Flight(111));
         
         
@@ -200,6 +202,63 @@ public class Utility
             }
 
 
+         }
+
+         public static void readFlights(String fileName)
+         {
+
+            try
+            {
+                Input input = new Input();
+            
+
+                File file = new File(fileName);
+            
+                Scanner s = new Scanner(file);
+
+                String dataValue;
+                String[] arr;
+                LinkedList<Flight> flights = new LinkedList<>();
+
+                while (s.hasNextLine())
+                {
+                    dataValue = s.nextLine();
+                    arr = dataValue.split(" ");
+                    flights.add(new Flight(arr[0], arr[1], arr[2], Double.parseDouble(arr[3])));
+                }
+            
+
+                mergeSortFlights(flights);
+
+
+                Iterator<Flight> itr = flights.iterator();
+
+
+                while (itr.hasNext())
+                {
+                    Flight flight = itr.next();
+
+                    if(input.getStartDate().equals(flight.getStartDate()) &&
+                        input.getEndDate().equals(flight.getReturnDate())
+                            && Double.parseDouble(input.getCost()) >= flight.getCost())
+                    {         
+                        System.out.println(flight.toString());
+                    }
+                
+                }
+            
+                s.close();
+            }
+
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            catch (ArrayIndexOutOfBoundsException e)
+            {
+                System.out.println("Error: Index out of bounds");
+            }
+            
          }
 
          
