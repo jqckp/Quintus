@@ -14,9 +14,9 @@ public class Webby
     public static String endDate = "2023-12-24";
     public static void main(String[] args)
     {
-        //String url = "https://www.kayak.com/flights/" + startLocation + "-" + endLocation + "/" + startDate + "/" + endDate  + "?sort=bestflight_a";
+        String url = "https://www.kayak.com/flights/" + startLocation + "-" + endLocation + "/" + startDate + "/" + endDate  + "?sort=price_a";
         WebDriver driver = new ChromeDriver();
-        driver.get("https://www.selenium.dev/documentation/");     
+        driver.get(url);     
     }
 
     public String getStartLocation()
