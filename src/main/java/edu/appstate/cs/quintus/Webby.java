@@ -46,7 +46,6 @@ public class Webby
             System.out.println(price.text());
         }
         
-        driver.close();
         driver.quit();
         
     }
