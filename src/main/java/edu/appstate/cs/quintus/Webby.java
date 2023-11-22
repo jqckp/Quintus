@@ -1,22 +1,25 @@
 package edu.appstate.cs.quintus;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-//import java.util.*;
 
 
 public class Webby 
 {
     
-    public static String startLocation = "RDU";
-    public static String endLocation = "DEL";
-    public static String startDate = "2023-12-17";
-    public static String endDate = "2023-12-24";
+    private static String startLocation = "RDU";
+    private static String endLocation = "DEL";
+    private static String startDate = "2023-12-17";
+    private static String endDate = "2023-12-24";
     public static void main(String[] args)
     {
-        String url = "https://www.kayak.com/flights/" + startLocation + "-" + endLocation + "/" + startDate + "/" + endDate  + "?sort=price_a";
+
+        String url = "https://www.kayak.com/flights/" + startLocation + "-" + endLocation + "/" + startDate + "/" + endDate  + "?sort=bestflight_a";
+        System.out.println(url);
         WebDriver driver = new ChromeDriver();
-        driver.get(url);     
+        driver.get("https://www.selenium.dev/documentation/");     
     }
 
     public String getStartLocation()
