@@ -16,7 +16,7 @@ public class AppTest
     @Test
     public void testLower()
     {
-        assertEquals(2.0, Lower.lower(2.0,4.0), "2.0 is lower than 4.0");
-        assertEquals(2.0, Lower.lower(4.0,2.0), "4.0 is higher than 2.0");
+        assertEquals(2.0, Utility.lower(2.0,4.0), "2.0 is lower than 4.0");
+        assertEquals(2.0, Utility.lower(4.0,2.0), "4.0 is higher than 2.0");
     }
 }
