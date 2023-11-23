@@ -34,6 +34,20 @@ public class Webby
         }
         WebElement button = driver.findElement(By.className("bBPb-close"));
         button.click();
+        
+        for(int i = 0; i < 5; i++)
+        {
+            button = driver.findElement(By.className("show-more-button"));
+            button.click();
+            try 
+            {
+                Thread.sleep(3000);
+            }    catch (InterruptedException e) 
+            {
+                e.printStackTrace();
+            }
+        }
+        
         List<WebElement> flights = driver.findElements(By.className("nrc6-wrapper"));
         for(WebElement webE: flights)
         {
