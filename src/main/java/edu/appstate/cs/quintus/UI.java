@@ -27,8 +27,5 @@ public class UI  {
 
         stage.show();
     }
-    
-
-
 
 }

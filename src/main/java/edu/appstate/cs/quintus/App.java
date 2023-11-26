@@ -9,23 +9,21 @@ import javafx.stage.Stage;
 
 public class App extends Application
 {
-   /**
+    /**
     * This is the main method
     */   
-   public static void main(String[] args)
-   {
+    public static void main(String[] args)
+    {
         launch(args);
 
         Utility.readFlights("flights_data.txt");
-
-
         
     }
 
 @Override
-public void start(Stage stage) throws Exception 
-{
-    UI userInterface = new UI(stage);
+    public void start(Stage stage) throws Exception 
+    {
+        UI userInterface = new UI(stage);
 
-}
+    }
 }
