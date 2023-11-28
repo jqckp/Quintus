@@ -32,14 +32,15 @@ public class Webby
     public void webbyGo(LinkedList<Flight> flights)
     {
         String url = "https://www.kayak.com/flights/" + getStartLocation() + "-" 
-                    + getEndLocation() + "/" + getStartDate() + "/" + getEndDate()  + "?sort=bestflight_a";
+                    + getEndLocation() + "/" + getStartDate() + "/" + getEndDate()  + "?sort=price_a";
         System.out.println(url);
         WebDriver driver = new ChromeDriver();
         driver.get(url);
         try 
         {
             Thread.sleep(10000);
-        } catch (InterruptedException e) 
+        } 
+        catch (InterruptedException e) 
         {
             e.printStackTrace();
         }
@@ -53,7 +54,8 @@ public class Webby
             try 
             {
                 Thread.sleep(3000);
-            }    catch (InterruptedException e) 
+            }    
+            catch (InterruptedException e) 
             {
                 e.printStackTrace();
             }

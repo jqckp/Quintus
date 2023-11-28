@@ -1,32 +1,63 @@
 package edu.appstate.cs.quintus;
 
-import javafx.application.Application; 
+import java.io.IOException;
+
+
+
+import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene; 
-import javafx.scene.control.*; 
-import javafx.scene.layout.*; 
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage; 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler; 
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader; 
 
-public class UI  {
+
+/**
+ * Loads scene into stage and sets title, logo, background, etc.
+ * Formatting loaded from Main.fxml.
+ * Functionality located in Controller class.
+ * 
+ * @author Jack Porter
+ * @version 11/27/2023
+ */
+public class UI {
+
 
     public UI(Stage stage)
     {
-        stage.setTitle("Quintus");
 
-        stage.getIcons().add(new javafx.scene.image.Image(
-            getClass().getResourceAsStream("Quintus_Logo.png")));
+        try
+        {
+            
+            Parent root = FXMLLoader.load(getClass().getResource("UI_Resources/Main.fxml"));
+            
+            Scene scene = new Scene(root);
 
-        StackPane root = new StackPane();
+            scene.getStylesheets().add(getClass().getResource("UI_Resources/GUI.css").toExternalForm());
 
-        root.setStyle("-fx-background-color: #333232;");
+            stage.setTitle("Quintus");
 
-        Scene scene = new Scene(root, 400, 300);
+            stage.getIcons().add(new javafx.scene.image.Image(getClass()
+                .getResourceAsStream("UI_Resources/Quintus_Logo.png")));
 
-        stage.setScene(scene);
+            stage.setScene(scene);
 
-        stage.show();
+            stage.setResizable(false);
+
+            stage.show();
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+            
     }
+
     
 
 
