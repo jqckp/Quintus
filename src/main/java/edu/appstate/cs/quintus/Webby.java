@@ -68,7 +68,6 @@ public class Webby
        
         for(WebElement webE: webFlights)
         {
-            //System.out.println(webE);
             String outerHTML = webE.getAttribute("outerHTML");
             Document doc = Jsoup.parse(outerHTML);
             Elements ePrice = doc.getElementsByClass("f8F1-price-text");
