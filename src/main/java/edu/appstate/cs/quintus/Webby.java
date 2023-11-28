@@ -76,7 +76,6 @@ public class Webby
             price.deleteCharAt(1);
             flights.add(new Flight(getStartDate(), getEndDate(), eAirline.text(), Double.parseDouble(price.toString())));
         }
-        driver.quit();
     }
 
     public String getStartLocation()
