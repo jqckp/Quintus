@@ -16,7 +16,7 @@ public class App extends Application
     {
         launch(args);
 
-        //Utility.readFlights("flights_data.txt");
+        
 
 
         
