@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 
 public class Webby 
@@ -34,8 +35,10 @@ public class Webby
         String url = "https://www.kayak.com/flights/" + getStartLocation() + "-" 
                     + getEndLocation() + "/" + getStartDate() + "/" + getEndDate()  + "?sort=price_a";
         System.out.println(url);
+
         WebDriver driver = new ChromeDriver();
         driver.get(url);
+
         try 
         {
             Thread.sleep(10000);
@@ -70,10 +73,13 @@ public class Webby
             Document doc = Jsoup.parse(outerHTML);
             Elements ePrice = doc.getElementsByClass("f8F1-price-text");
             Elements eAirline = doc.getElementsByClass("J0g6-labels-grp");
-            String $price = ePrice.text();
+            String $price = ePrice.get(0).text();
             StringBuilder price = new StringBuilder($price);
             price.deleteCharAt(0);
-            price.deleteCharAt(1);
+            if(price.length() > 3)
+            {
+                price.deleteCharAt(1);
+            }
             flights.add(new Flight(getStartDate(), getEndDate(), eAirline.text(), Double.parseDouble(price.toString())));
         }
     }
