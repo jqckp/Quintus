@@ -44,15 +44,22 @@ public class Webby
         try 
         {
             Thread.sleep(30000);
-        } catch (InterruptedException e) 
+        } 
+        catch (InterruptedException e) 
         {
             e.printStackTrace();
         }
+<<<<<<< HEAD
         //driver.get(url);
+=======
+        
+        driver.get(url);
+>>>>>>> bd385e61d4b0e54b071754d1f9e6c81388a15a75
         try 
         {
             Thread.sleep(10000);
-        } catch (InterruptedException e) 
+        } 
+        catch (InterruptedException e) 
         {
             e.printStackTrace();
         }
@@ -66,7 +73,8 @@ public class Webby
             try 
             {
                 Thread.sleep(3000);
-            }    catch (InterruptedException e) 
+            }    
+            catch (InterruptedException e) 
             {
                 e.printStackTrace();
             }
@@ -85,6 +93,7 @@ public class Webby
             System.out.println(airline.text());
             System.out.println(price.text());
         }
+        
         System.out.println(count);;
         driver.quit();
     }
