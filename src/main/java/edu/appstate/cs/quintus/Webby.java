@@ -49,12 +49,7 @@ public class Webby
         {
             e.printStackTrace();
         }
-<<<<<<< HEAD
         //driver.get(url);
-=======
-        
-        driver.get(url);
->>>>>>> bd385e61d4b0e54b071754d1f9e6c81388a15a75
         try 
         {
             Thread.sleep(10000);
