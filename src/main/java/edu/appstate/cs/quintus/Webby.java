@@ -35,12 +35,12 @@ public class Webby
     public void webbyGo()
     {
         String url = "https://www.kayak.com/flights/" + getStartLocation() + "-" 
-                    + getEndLocation() + "/" + getStartDate() + "/" + getEndDate()  + "?sort=bestflight_a";
+                    + getEndLocation() + "/" + getStartDate() + "/" + getEndDate()  + "?sort=price_a";
         System.out.println(url);
         WebDriver driver = new ChromeDriver();
-        driver.get(urll);
-        WebElement pbutton = driver.findElement(By.className("ytp-play-button"));
-        pbutton.click();
+        driver.get(url);
+        //WebElement pbutton = driver.findElement(By.className("ytp-play-button"));
+        //pbutton.click();
         try 
         {
             Thread.sleep(30000);
@@ -48,7 +48,7 @@ public class Webby
         {
             e.printStackTrace();
         }
-        driver.get(url);
+        //driver.get(url);
         try 
         {
             Thread.sleep(10000);
@@ -129,6 +129,6 @@ public class Webby
         this.endDate = endDate;
     }
 
-    private String urll = "https://youtu.be/dQw4w9WgXcQ?si=HWGsV2IEMpB-dLhQ";
+    //private String urll = "https://youtu.be/dQw4w9WgXcQ?si=HWGsV2IEMpB-dLhQ";
 }
 
