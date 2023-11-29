@@ -14,7 +14,7 @@ public class App extends Application
         launch(args);
     }
 
-    @SuppressWarnings(value = { "unused" })
+    @SuppressWarnings(value ="unused")
     @Override
     public void start(Stage stage) throws Exception 
     {

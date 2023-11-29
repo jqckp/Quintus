@@ -92,6 +92,13 @@ public class Controller
         
         try
         {
+            double priceLimit = Double.parseDouble(maxPrice.getText());
+
+            if (validateMaxPrice(priceLimit) && validateDates())
+            {
+                System.out.println("Thank you for entering valid price limit");
+            }
+            
             LocalDate selectedDate = departureDate.getValue();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String startDate = selectedDate.format(formatter);
@@ -104,33 +111,24 @@ public class Controller
             Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
             webby.webbyGo(flights);
 
-            try
+            Utility.mergeSortFlights(flights);
+
+
+            Iterator<Flight> itr = flights.iterator();
+
+
+            while (itr.hasNext())
             {
-                Utility.mergeSortFlights(flights);
+                Flight flight = itr.next();
 
-
-                Iterator<Flight> itr = flights.iterator();
-
-
-                while (itr.hasNext())
-                {
-                    Flight flight = itr.next();
-
-                    if(input.getStartDate().equals(flight.getStartDate()) &&
-                        input.getEndDate().equals(flight.getReturnDate())
-                            && Double.parseDouble(input.getCost()) >= flight.getCost())
-                    {         
-                        flightData.appendText(flight.toString() + "\n");
-                    }
-                
+                if(input.getStartDate().equals(flight.getStartDate()) &&
+                    input.getEndDate().equals(flight.getReturnDate())
+                        && Double.parseDouble(input.getCost()) >= flight.getCost())
+                {         
+                    flightData.appendText(flight.toString() + "\n");
                 }
+                
             }
-
-            catch (ArrayIndexOutOfBoundsException ex)
-            {
-                System.out.println("Error: Index out of bounds");
-            }
-
         errorMessage.setText("Searching...");
 
 
@@ -150,13 +148,17 @@ public class Controller
             System.out.println("Make sure to enter both dates");
         }
 
+        catch (ArrayIndexOutOfBoundsException ex)
+        {
+            System.out.println("Error: Index out of bounds");
+        }
+
         
 
         
     }
 
-
-
+    @SuppressWarnings("unused")
     private boolean validateMaxPrice(double priceLim)
     {
         if (!(priceLim >= 0 && priceLim < Integer.MAX_VALUE))
@@ -167,6 +169,7 @@ public class Controller
         return true;
     }
 
+    @SuppressWarnings("unused")
     private boolean validateDates()
     {
         currentDate = new Date();
