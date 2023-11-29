@@ -12,6 +12,7 @@ public class App extends Application
     */   
     public static void main(String[] args)
     {
+     
         launch(args);
         LinkedList<Flight> flights = new LinkedList<Flight>();
         Input input = new Input();
@@ -20,6 +21,7 @@ public class App extends Application
         Utility.readFlights(flights, input);
 
         
+
     }
 
 @Override
