@@ -98,6 +98,7 @@ public class Controller {
             
             double priceLimit = Double.parseDouble(maxPrice.getText());
 
+            
             //System.out.println(departureDate.getValue().toString());
             //System.out.println(returnDate.getValue().toString());
 
@@ -107,12 +108,12 @@ public class Controller {
                 System.out.println("Thank you for entering valid price limit");
             }
 
-        errorMessage.setText("Searching...");
+            errorMessage.setText("Searching...");
 
 
         } catch (NumberFormatException ex)
         {
-            System.out.println("Enter a number");
+            errorMessage.setText("Price entered is not a number");
         }
 
         catch (IllegalArgumentException ex)
@@ -123,7 +124,7 @@ public class Controller {
 
         catch (NullPointerException ex)
         {
-            System.out.println("Make sure to enter both dates");
+            System.out.println("Empty fields");
         }
 
         
