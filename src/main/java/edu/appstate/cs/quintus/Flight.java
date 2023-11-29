@@ -7,6 +7,7 @@ public class Flight
     private String returnDate;
     private String airline;
     private double cost;
+    private String url;
     private LinkedList<Flight> flightList;
 
     public Flight()
@@ -29,14 +30,26 @@ public class Flight
         setAirline(airline);
         setCost(cost);
     }
-
-
     
+    public Flight(String startDate, String returnDate, String airline, double cost, String url)
+    {
+        setStartDate(startDate);
+        setReturnDate(returnDate);
+        setAirline(airline);
+        setCost(cost);
+        setUrl(url);
+    }
 
     public void setStartDate(String startDate)
     {
         this.startDate = startDate;
     }
+
+    public void setUrl(String url)
+    {
+        this.url = url;
+    }
+    
 
     public void setReturnDate(String returnDate)
     {
@@ -71,6 +84,11 @@ public class Flight
     public double getCost()
     {
         return this.cost;
+    }
+
+    public String getUrl()
+    {
+        return url;
     }
 
     public String toString()

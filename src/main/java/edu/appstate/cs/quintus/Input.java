@@ -32,7 +32,9 @@ public class Input
         System.out.print("Enter start date:");
         setStartDate(scan.nextLine());
         System.out.print("Enter end date:");
+        System.out.print("Enter end date ('mm/dd/yyyy'):");
         setEndDate(scan.nextLine());
+        
         System.out.print("Enter in your max price limit:");
         setCost(scan.nextLine());
 
