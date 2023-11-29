@@ -225,4 +225,41 @@ public class Utility
             
          }
 
+         public static void readFlights(LinkedList<Flight> flights, Input input)
+         {
+
+            try
+            {
+                mergeSortFlights(flights);
+
+
+                Iterator<Flight> itr = flights.iterator();
+
+
+                while (itr.hasNext())
+                {
+                    Flight flight = itr.next();
+
+                    if(input.getStartDate().equals(flight.getStartDate()) &&
+                        input.getEndDate().equals(flight.getReturnDate())
+                            && Double.parseDouble(input.getCost()) >= flight.getCost())
+                    {         
+                        System.out.println(flight.toString());
+                    }
+                
+                }
+            }
+
+            catch (ArrayIndexOutOfBoundsException e)
+            {
+                System.out.println("Error: Index out of bounds");
+            }
+            
+         }
+
+         
+
+
+
+
 }
