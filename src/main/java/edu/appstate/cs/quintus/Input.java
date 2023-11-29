@@ -24,6 +24,24 @@ public class Input
     
     public Input() 
     {
+        startDate = "";
+        endDate = "";
+        cost = "";
+        startLocation = "";
+        endLocation = "";
+    }
+
+    public void setInput(String startDate, String endDate, String cost, String startLocation, String endLocation)
+    {
+        setStartDate(startDate);
+        setEndDate(endDate);
+        setCost(cost);
+        setStartLocation(startLocation);
+        setEndLocation(endLocation);
+    }
+
+    public void inputGo()
+    {
         Scanner scan = new Scanner(System.in);
         System.out.print("Start Location:");
         setStartLocation(scan.nextLine());
@@ -38,7 +56,7 @@ public class Input
         System.out.print("Enter in your max price limit:");
         setCost(scan.nextLine());
 
-        scan.close();            
+        scan.close(); 
     }
 
     public String getStartLocation()

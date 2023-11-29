@@ -1,10 +1,10 @@
 package edu.appstate.cs.quintus;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
-
-
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +13,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 
 /**
  * Defines functionality of Quintus UI.
@@ -21,10 +20,8 @@ import javafx.scene.text.Text;
  * @author Jack Porter
  * @version 11/27/2023
  */
-public class Controller {
-    
-
-
+public class Controller 
+{
     private static String DATE_PATTERN = "^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/(\\d{4})$";
 
     @FXML
@@ -95,16 +92,43 @@ public class Controller {
         
         try
         {
-            
-            double priceLimit = Double.parseDouble(maxPrice.getText());
+            LocalDate selectedDate = departureDate.getValue();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String startDate = selectedDate.format(formatter);
+            selectedDate = returnDate.getValue();
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String endDate = selectedDate.format(formatter);
+            LinkedList<Flight> flights = new LinkedList<Flight>();
+            Input input = new Input();
+            input.setInput(startDate, endDate, maxPrice.getText(), departureLocation.getText(), destination.getText());
+            Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
+            webby.webbyGo(flights);
 
-            //System.out.println(departureDate.getValue().toString());
-            //System.out.println(returnDate.getValue().toString());
-
-
-            if (validateMaxPrice(priceLimit) && validateDates())
+            try
             {
-                System.out.println("Thank you for entering valid price limit");
+                Utility.mergeSortFlights(flights);
+
+
+                Iterator<Flight> itr = flights.iterator();
+
+
+                while (itr.hasNext())
+                {
+                    Flight flight = itr.next();
+
+                    if(input.getStartDate().equals(flight.getStartDate()) &&
+                        input.getEndDate().equals(flight.getReturnDate())
+                            && Double.parseDouble(input.getCost()) >= flight.getCost())
+                    {         
+                        flightData.appendText(flight.toString() + "\n");
+                    }
+                
+                }
+            }
+
+            catch (ArrayIndexOutOfBoundsException ex)
+            {
+                System.out.println("Error: Index out of bounds");
             }
 
         errorMessage.setText("Searching...");
