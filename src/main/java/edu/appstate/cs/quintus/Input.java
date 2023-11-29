@@ -18,21 +18,38 @@ public class Input
     private String startDate;
     private String endDate;
     private String cost;
+    private String startLocation;
+    private String endLocation;
 
     
     public Input() 
     {
         Scanner scan = new Scanner(System.in);
-        System.out.print("Enter start date ('mm/dd/yyyy'):");
+        System.out.print("Start Location:");
+        setStartLocation(scan.nextLine());
+        System.out.print("End Location:");
+        setEndLocation(scan.nextLine());
+        System.out.print("Enter start date:");
         setStartDate(scan.nextLine());
+        System.out.print("Enter end date:");
         System.out.print("Enter end date ('mm/dd/yyyy'):");
         setEndDate(scan.nextLine());
+        
         System.out.print("Enter in your max price limit:");
         setCost(scan.nextLine());
 
         scan.close();            
     }
 
+    public String getStartLocation()
+    {
+        return startLocation;
+    }
+
+    public String getEndLocation()
+    {
+        return endLocation;
+    }
 
     public String getStartDate()
     {
@@ -61,6 +78,16 @@ public class Input
     public void setEndDate(String endDate)
     {
         this.endDate = endDate;
+    }
+
+    public void setStartLocation(String startLocation)
+    {
+        this.startLocation = startLocation;
+    }
+
+    public void setEndLocation(String endLocation)
+    {
+        this.endLocation = endLocation;
     }
 
 

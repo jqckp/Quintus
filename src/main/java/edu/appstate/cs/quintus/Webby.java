@@ -1,5 +1,6 @@
 package edu.appstate.cs.quintus;
 
+import java.util.LinkedList;
 import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 
 public class Webby 
@@ -18,10 +20,6 @@ public class Webby
     private String startDate;
     private String endDate;
 
-    public static void main(String[] args) {
-        Webby webby = new Webby("RDU", "DEL", "2023-12-17", "2023-12-24");
-        webby.webbyGo();
-    }
     
     public Webby(String startLocation, String endLocation, String startDate, String endDate)
     {
@@ -32,27 +30,20 @@ public class Webby
         
     }
 
-    public void webbyGo()
+    public void webbyGo(LinkedList<Flight> flights)
     {
         String url = "https://www.kayak.com/flights/" + getStartLocation() + "-" 
-                    + getEndLocation() + "/" + getStartDate() + "/" + getEndDate()  + "?sort=bestflight_a";
+                    + getEndLocation() + "/" + getStartDate() + "/" + getEndDate()  + "?sort=price_a";
         System.out.println(url);
+
         WebDriver driver = new ChromeDriver();
-        driver.get(urll);
-        WebElement pbutton = driver.findElement(By.className("ytp-play-button"));
-        pbutton.click();
-        try 
-        {
-            Thread.sleep(30000);
-        } catch (InterruptedException e) 
-        {
-            e.printStackTrace();
-        }
         driver.get(url);
+
         try 
         {
             Thread.sleep(10000);
-        } catch (InterruptedException e) 
+        } 
+        catch (InterruptedException e) 
         {
             e.printStackTrace();
         }
@@ -66,27 +57,30 @@ public class Webby
             try 
             {
                 Thread.sleep(3000);
-            }    catch (InterruptedException e) 
+            }    
+            catch (InterruptedException e) 
             {
                 e.printStackTrace();
             }
         }
         
-        List<WebElement> flights = driver.findElements(By.className("nrc6-wrapper"));
-        int count = 0;
-        for(WebElement webE: flights)
+        List<WebElement> webFlights = driver.findElements(By.className("nrc6-wrapper"));
+       
+        for(WebElement webE: webFlights)
         {
-            //System.out.println(webE);
-            count++;
             String outerHTML = webE.getAttribute("outerHTML");
             Document doc = Jsoup.parse(outerHTML);
-            Elements price = doc.getElementsByClass("f8F1-price-text");
-            Elements airline = doc.getElementsByClass("J0g6-labels-grp");
-            System.out.println(airline.text());
-            System.out.println(price.text());
+            Elements ePrice = doc.getElementsByClass("f8F1-price-text");
+            Elements eAirline = doc.getElementsByClass("J0g6-labels-grp");
+            String $price = ePrice.get(0).text();
+            StringBuilder price = new StringBuilder($price);
+            price.deleteCharAt(0);
+            if(price.length() > 3)
+            {
+                price.deleteCharAt(1);
+            }
+            flights.add(new Flight(getStartDate(), getEndDate(), eAirline.text(), Double.parseDouble(price.toString())));
         }
-        System.out.println(count);;
-        driver.quit();
     }
 
     public String getStartLocation()
@@ -128,7 +122,5 @@ public class Webby
     {
         this.endDate = endDate;
     }
-
-    private String urll = "https://youtu.be/dQw4w9WgXcQ?si=HWGsV2IEMpB-dLhQ";
 }
 

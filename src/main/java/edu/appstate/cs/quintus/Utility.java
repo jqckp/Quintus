@@ -3,26 +3,13 @@ package edu.appstate.cs.quintus;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-/**
- * This class contains the method for finding the lowest value
- * between two doubles. 
- * 
- * @author Andrew Tuprin
- * @version 11/2/2023
- */
 import java.util.*;
-
 
 
 
 public class Utility 
 {
-
     private static LinkedList<Flight> flights = new LinkedList<>();
-    
-
-    
-
     
 
     public static void main(String[] args)
@@ -35,10 +22,6 @@ public class Utility
         flights.add(new Flight(260));
         flights.add(new Flight(101));
         flights.add(new Flight(111));
-        
-        
-
-        
 
         
         System.out.println(flights.size());
@@ -48,18 +31,12 @@ public class Utility
         System.out.println(flights.size());
 
 
-
         for (Flight flight : flights)
         {
             System.out.println(flight.toString());
         }
 
-
-
     }
-
-
-
 
 
     /**
@@ -133,15 +110,11 @@ public class Utility
 
         int middle = length / 2;
 
-
         LinkedList<Flight> leftSub = new LinkedList<>(flights.subList(0, middle));
         LinkedList<Flight> rightSub = new LinkedList<>(flights.subList(middle, length));
 
-    
-
         mergeSortFlights(leftSub);
         mergeSortFlights(rightSub);
-
 
         merge(leftSub, rightSub, flights);
 
@@ -160,18 +133,14 @@ public class Utility
     private static void merge(LinkedList<Flight> leftSub,
          LinkedList<Flight> rightSub, LinkedList<Flight> flights)
          {
-            
-
             int leftIndex = 0;
             int rightIndex = 0;
             int startingIndex = 0;
-
 
             while (leftIndex < leftSub.size() && rightIndex < rightSub.size())
             {
                 Flight leftElement = leftSub.get(leftIndex);
                 Flight rightElement = rightSub.get(rightIndex);
-
 
                 if (leftElement.getCost() <= rightElement.getCost())
                 {
@@ -201,7 +170,6 @@ public class Utility
                 flights.set(startingIndex++, rightSub.get(rightIndex++));
             }
 
-
          }
 
          public static void readFlights(String fileName)
@@ -211,7 +179,6 @@ public class Utility
             {
                 Input input = new Input();
             
-
                 File file = new File(fileName);
             
                 Scanner s = new Scanner(file);
@@ -226,13 +193,10 @@ public class Utility
                     arr = dataValue.split(" ");
                     flights.add(new Flight(arr[0], arr[1], arr[2], Double.parseDouble(arr[3])));
                 }
-            
 
                 mergeSortFlights(flights);
 
-
                 Iterator<Flight> itr = flights.iterator();
-
 
                 while (itr.hasNext())
                 {
@@ -254,6 +218,38 @@ public class Utility
             {
                 e.printStackTrace();
             }
+            catch (ArrayIndexOutOfBoundsException e)
+            {
+                System.out.println("Error: Index out of bounds");
+            }
+            
+         }
+
+         public static void readFlights(LinkedList<Flight> flights, Input input)
+         {
+
+            try
+            {
+                mergeSortFlights(flights);
+
+
+                Iterator<Flight> itr = flights.iterator();
+
+
+                while (itr.hasNext())
+                {
+                    Flight flight = itr.next();
+
+                    if(input.getStartDate().equals(flight.getStartDate()) &&
+                        input.getEndDate().equals(flight.getReturnDate())
+                            && Double.parseDouble(input.getCost()) >= flight.getCost())
+                    {         
+                        System.out.println(flight.toString());
+                    }
+                
+                }
+            }
+
             catch (ArrayIndexOutOfBoundsException e)
             {
                 System.out.println("Error: Index out of bounds");
