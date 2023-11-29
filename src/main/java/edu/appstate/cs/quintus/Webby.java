@@ -41,29 +41,23 @@ public class Webby
 
         try 
         {
-            Thread.sleep(10000);
+            Thread.sleep(5000);
         } 
         catch (InterruptedException e) 
         {
             e.printStackTrace();
         }
+        try
+        {
         WebElement button = driver.findElement(By.className("bBPb-close"));
         button.click();
-        
-        for(int i = 0; i < 5; i++)
-        {
-            button = driver.findElement(By.className("show-more-button"));
-            button.click();
-            try 
-            {
-                Thread.sleep(3000);
-            }    
-            catch (InterruptedException e) 
-            {
-                e.printStackTrace();
-            }
         }
-        
+        catch(Exception e)
+        {
+            System.out.println("Element not found");
+        }
+        try
+        {
         List<WebElement> webFlights = driver.findElements(By.className("nrc6-wrapper"));
        
         for(WebElement webE: webFlights)
@@ -75,13 +69,19 @@ public class Webby
             String $price = ePrice.get(0).text();
             StringBuilder price = new StringBuilder($price);
             price.deleteCharAt(0);
-            if(price.length() > 3)
+            if (price.length() > 3)
             {
                 price.deleteCharAt(1);
             }
             flights.add(new Flight(getStartDate(), getEndDate(), eAirline.text(), Double.parseDouble(price.toString())));
         }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Element not found");
+        }
         driver.quit();
+
     }
 
     public String getStartLocation()
