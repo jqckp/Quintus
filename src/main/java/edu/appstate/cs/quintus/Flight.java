@@ -1,5 +1,4 @@
 package edu.appstate.cs.quintus;
-import java.util.LinkedList;
 
 public class Flight 
 {
@@ -92,7 +91,7 @@ public class Flight
 
     public String toString()
     {
-        return String.format("Departure Date %s | Return Date %s\nAirline: %s | Cost: %.2f\nURl: %s",
+        return String.format("Departure Date %s | Return Date %s\nAirline: %s | Cost: %.2f\nURl: %s\n",
             getStartDate(), getReturnDate(), getAirline(), getCost(), getUrl());
     }
 }

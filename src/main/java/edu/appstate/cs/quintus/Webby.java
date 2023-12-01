@@ -2,9 +2,6 @@ package edu.appstate.cs.quintus;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.swing.text.html.parser.Element;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -12,7 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 
 public class Webby 
@@ -69,10 +65,7 @@ public class Webby
             Document doc = Jsoup.parse(outerHTML);
             Elements ePrice = doc.getElementsByClass("f8F1-price-text");
             Elements eAirline = doc.getElementsByClass("c_cgF");
-            Elements eUrl = doc.getElementsByTag("a");
-            //Elements eUrl = doc.getElementsByClass("dOAU-main-btn-wrap");
-
-            String $price = ePrice.get(0).text();
+            Elements eUrl = doc.getElementsByTag("a");String $price = ePrice.get(0).text();
             StringBuilder price = new StringBuilder($price);
             price.deleteCharAt(0);
             if (price.length() > 3)
