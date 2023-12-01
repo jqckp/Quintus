@@ -2,6 +2,9 @@ package edu.appstate.cs.quintus;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.swing.text.html.parser.Element;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -65,7 +68,10 @@ public class Webby
             String outerHTML = webE.getAttribute("outerHTML");
             Document doc = Jsoup.parse(outerHTML);
             Elements ePrice = doc.getElementsByClass("f8F1-price-text");
-            Elements eAirline = doc.getElementsByClass("J0g6-labels-grp");
+            Elements eAirline = doc.getElementsByClass("c_cgF");
+            Elements eUrl = doc.getElementsByTag("a");
+            //Elements eUrl = doc.getElementsByClass("dOAU-main-btn-wrap");
+
             String $price = ePrice.get(0).text();
             StringBuilder price = new StringBuilder($price);
             price.deleteCharAt(0);
@@ -73,7 +79,8 @@ public class Webby
             {
                 price.deleteCharAt(1);
             }
-            flights.add(new Flight(getStartDate(), getEndDate(), eAirline.text(), Double.parseDouble(price.toString())));
+            flights.add(new Flight(getStartDate(), getEndDate(), eAirline.get(0).text(), 
+                        Double.parseDouble(price.toString()), eUrl.attr("href")));
         }
         }
         catch (Exception e)
