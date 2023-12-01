@@ -87,7 +87,7 @@ public class Flight
 
     public String getUrl()
     {
-        return url;
+        return "https://www.kayak.com" + url;
     }
 
     public String toString()
