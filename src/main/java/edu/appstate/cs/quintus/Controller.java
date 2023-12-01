@@ -87,11 +87,22 @@ public class Controller
     }
 
     @FXML
+    private void reset(ActionEvent e)
+    {
+        flightData.clear();
+        departureLocation.clear();
+        destination.clear();
+        maxPrice.clear();
+        departureDate.setValue(null);
+        returnDate.setValue(null);
+    }
+    @FXML
     private void search(ActionEvent e)
     {
         
         try
         {
+            flightData.clear();
             double priceLimit = Double.parseDouble(maxPrice.getText());
 
             if (validateMaxPrice(priceLimit) && validateDates())
@@ -158,7 +169,7 @@ public class Controller
         
     }
 
-    @SuppressWarnings("unused")
+
     private boolean validateMaxPrice(double priceLim)
     {
         if (!(priceLim >= 0 && priceLim < Integer.MAX_VALUE))
@@ -169,7 +180,7 @@ public class Controller
         return true;
     }
 
-    @SuppressWarnings("unused")
+
     private boolean validateDates()
     {
         currentDate = new Date();
