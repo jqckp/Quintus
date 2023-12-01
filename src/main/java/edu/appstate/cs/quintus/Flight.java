@@ -8,7 +8,6 @@ public class Flight
     private String airline;
     private double cost;
     private String url;
-    private LinkedList<Flight> flightList;
 
     public Flight()
     {
@@ -93,7 +92,7 @@ public class Flight
 
     public String toString()
     {
-        return String.format("Cost: %.2f | Departure Date %s | Return Date %s | Airline: %s",
-            getCost(), getStartDate(), getReturnDate(), getAirline());
+        return String.format("Departure Date %s | Return Date %s\nAirline: %s | Cost: %.2f\nURl: %s",
+            getStartDate(), getReturnDate(), getAirline(), getCost(), getUrl());
     }
 }
