@@ -120,7 +120,7 @@ public class Flight
 
     public String toString()
     {
-        return String.format("Departure Date %s | Airline: %s\nReturn Date %s | Airline: %s\nCost: $%.2f\nURl: %s\n",
+        return String.format("Departure Date %s | Airline: %s\nReturn Date %s | Airline: %s\nCost: $%.2f",
             getStartDate(), getDAirline(), getReturnDate(), getRAirline(), getCost(), getUrl());
     }
 }
