@@ -18,14 +18,14 @@ public class App extends Application
 
 
         
-        LinkedList<Flight> flights = new LinkedList<Flight>();
-        Input input = new Input();
-        input.setInput("2023-12-14", "10000", "CLT", "NYC");
-        Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
-        webby.webbyOneAirline(flights);
-        Utility.readOneFlights(flights, input);
-        Desktop desktop = Desktop.getDesktop();
-        desktop.browse(new URI(flights.get(0).getUrl()));
+        //LinkedList<Flight> flights = new LinkedList<Flight>();
+        //Input input = new Input();
+        //input.setInput("2023-12-14", "10000", "CLT", "NYC");
+        //Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
+        //webby.webbyOneAirline(flights);
+        //Utility.readOneFlights(flights, input);
+        //Desktop desktop = Desktop.getDesktop();
+        //desktop.browse(new URI(flights.get(0).getUrl()));
     }
 
     
