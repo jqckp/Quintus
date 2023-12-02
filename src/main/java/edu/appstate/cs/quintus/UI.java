@@ -43,9 +43,6 @@ public class UI {
             Font.loadFont(getClass().getResourceAsStream("UI_Resources/Alien AI.ttf"), 12);
 
 
-            
-
-
             stage.setTitle("Quintus");
 
             stage.getIcons().add(new javafx.scene.image.Image(getClass()
