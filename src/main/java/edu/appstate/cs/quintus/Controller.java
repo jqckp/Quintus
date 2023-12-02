@@ -2,9 +2,11 @@ package edu.appstate.cs.quintus;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.awt.Desktop;
+import java.net.URI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import net.bytebuddy.asm.Advice.Local;
 
 /**
  * Defines functionality of Quintus UI.
@@ -22,8 +25,6 @@ import javafx.scene.control.TextField;
  */
 public class Controller 
 {
-    private static String DATE_PATTERN = "^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/(\\d{4})$";
-
     @FXML
     private Button locationClear;
 
@@ -60,12 +61,13 @@ public class Controller
     @FXML
     private TextArea flightData;
 
-    @FXML
-    private Label maxPriceError;
+    private LocalDate currentDate = LocalDate.now();
 
-    private Date currentDate;
+    private LocalDate departDate;
 
+    private String pattern = "yyyy-MM-dd";
 
+    private LocalDate destinDate;
 
     @FXML
     private void clearLocation(ActionEvent e)
@@ -80,7 +82,6 @@ public class Controller
     {
         departureDate.setValue(null);
         returnDate.setValue(null);
-
     }
 
     @FXML
@@ -89,116 +90,89 @@ public class Controller
         maxPrice.clear();
     }
 
-
     @FXML
     private void reset(ActionEvent e)
     {
         flightData.clear();
+        departureLocation.clear();
+        destination.clear();
         maxPrice.clear();
         departureDate.setValue(null);
         returnDate.setValue(null);
-        departureLocation.clear();
-        destination.clear();
-        errorMessage.setText("Quintus");
-        maxPriceError.setText("");
-
-
     }
-
     @FXML
     private void search(ActionEvent e)
-    {
-
-        errorMessage.setText("Searching...");
-        
+    {        
         try
         {
-            //Checks to see if price entered is a number or not
-            double priceToCheck = Double.parseDouble(maxPrice.getText());
-
-            validateMaxPrice(priceToCheck);
-
-            LocalDate selectedDate = departureDate.getValue();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String startDate = selectedDate.format(formatter);
-            selectedDate = returnDate.getValue();
-            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String endDate = selectedDate.format(formatter);
-            LinkedList<Flight> flights = new LinkedList<Flight>();
-
-            
-
-
-            Input input = new Input();
-            input.setInput(startDate, endDate, maxPrice.getText(), departureLocation.getText(), destination.getText());
-            Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
-            webby.webbyGo(flights);
-
-            
-            Utility.mergeSortFlights(flights);
-
-
-            Iterator<Flight> itr = flights.iterator();
-
-            
-            while (itr.hasNext())
+            flightData.clear();
+            int t = 0;
+            //double priceLimit = Double.parseDouble(maxPrice.getText()); 
+            if(datePickerNull(departureDate, returnDate))
             {
-                Flight flight = itr.next();
-
-                if(input.getStartDate().equals(flight.getStartDate()) &&
-                    input.getEndDate().equals(flight.getReturnDate())
-                        && Double.parseDouble(input.getCost()) >= flight.getCost())
-                {         
-                    flightData.appendText(flight.toString() + "\n");
-                }
-                
+                System.out.println("Please select a date.");
+                t++;                
             }
-
-            if (flightData.getText().length() != 0)
-            {
-                errorMessage.setText("Flights found");
-            }
-
             else
             {
-                errorMessage.setText("No flights found");
+                departDate = departureDate.getValue();
+                destinDate = returnDate.getValue();
+                if(datesNull(departDate, destinDate))
+                {
+                    t++;
+                    System.out.println("Please select an appropriate date.");
+                }
+                else if(datesIncorrect(departDate, destinDate, currentDate))
+                {
+                    t++;
+                    System.out.println("order should be current -> start -> end");
+                }
             }
-            
 
+            if(t == 0)
+            {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+                String startDate = departDate.format(formatter);
+                String endDate = destinDate.format(formatter);
+                LinkedList<Flight> flights = new LinkedList<Flight>();
+                Input input = new Input();
+                input.setInput(startDate, endDate, maxPrice.getText(), departureLocation.getText(), destination.getText());
+                Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
+                webby.webbyTwoAirline(flights);
 
+                Utility.mergeSortFlights(flights);
 
-        } catch (NumberFormatException ex)
+                Iterator<Flight> itr = flights.iterator();
+
+                while (itr.hasNext())
+                {
+                    Flight flight = itr.next();
+
+                    if(input.getStartDate().equals(flight.getStartDate()) &&
+                        input.getEndDate().equals(flight.getReturnDate())
+                            && Double.parseDouble(input.getCost()) >= flight.getCost())
+                    {         
+                        flightData.appendText(flight.toString() + "\n");
+                    }
+                }
+            }            
+        }
+
+        catch (NumberFormatException ex)
         {
             
         }
 
         catch (IllegalArgumentException ex)
         {
-            if (ex.getMessage().equals("Invalid price"))
-            {
-                maxPriceError.setText("Invalid");
-            }
-
-            errorMessage.setText("Error");
-            
+            errorMessage.setText("Invalid max price");
         }
 
         catch (NullPointerException ex)
         {
-            errorMessage.setText("Empty fields");
-        }
-
-        catch (ArrayIndexOutOfBoundsException ex)
-        {
-            System.out.println("Error: Index out of bounds");
-        }
-
-        
-
-        
+            ex.printStackTrace();
+        }      
     }
-
-
 
     private boolean validateMaxPrice(double priceLim)
     {
@@ -210,11 +184,19 @@ public class Controller
         return true;
     }
 
-    private boolean validateDates()
+    private boolean datePickerNull(DatePicker d1, DatePicker d2)
     {
-        
+        return departureDate == null || returnDate == null;
+    }
 
-        return true;
+    private boolean datesNull(LocalDate l1, LocalDate l2)
+    {
+        return l1 == null || l2 == null;
+    }
+
+    private boolean datesIncorrect(LocalDate start, LocalDate end, LocalDate current)
+    {
+        return current.compareTo(start) > 0 || current.compareTo(end) > 0 || start.compareTo(end) > 0;
     }
 
 }
