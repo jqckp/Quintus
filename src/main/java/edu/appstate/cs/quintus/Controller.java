@@ -60,6 +60,9 @@ public class Controller
     @FXML
     private TextArea flightData;
 
+    @FXML
+    private Label maxPriceError;
+
     private Date currentDate;
 
 
@@ -86,12 +89,35 @@ public class Controller
         maxPrice.clear();
     }
 
+
+    @FXML
+    private void reset(ActionEvent e)
+    {
+        flightData.clear();
+        maxPrice.clear();
+        departureDate.setValue(null);
+        returnDate.setValue(null);
+        departureLocation.clear();
+        destination.clear();
+        errorMessage.setText("Quintus");
+        maxPriceError.setText("");
+
+
+    }
+
     @FXML
     private void search(ActionEvent e)
     {
+
+        errorMessage.setText("Searching...");
         
         try
         {
+            //Checks to see if price entered is a number or not
+            double priceToCheck = Double.parseDouble(maxPrice.getText());
+
+            validateMaxPrice(priceToCheck);
+
             LocalDate selectedDate = departureDate.getValue();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String startDate = selectedDate.format(formatter);
@@ -99,55 +125,72 @@ public class Controller
             formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String endDate = selectedDate.format(formatter);
             LinkedList<Flight> flights = new LinkedList<Flight>();
+
+            
+
+
             Input input = new Input();
             input.setInput(startDate, endDate, maxPrice.getText(), departureLocation.getText(), destination.getText());
             Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
             webby.webbyGo(flights);
 
-            try
+            
+            Utility.mergeSortFlights(flights);
+
+
+            Iterator<Flight> itr = flights.iterator();
+
+            
+            while (itr.hasNext())
             {
-                Utility.mergeSortFlights(flights);
+                Flight flight = itr.next();
 
-
-                Iterator<Flight> itr = flights.iterator();
-
-
-                while (itr.hasNext())
-                {
-                    Flight flight = itr.next();
-
-                    if(input.getStartDate().equals(flight.getStartDate()) &&
-                        input.getEndDate().equals(flight.getReturnDate())
-                            && Double.parseDouble(input.getCost()) >= flight.getCost())
-                    {         
-                        flightData.appendText(flight.toString() + "\n");
-                    }
-                
+                if(input.getStartDate().equals(flight.getStartDate()) &&
+                    input.getEndDate().equals(flight.getReturnDate())
+                        && Double.parseDouble(input.getCost()) >= flight.getCost())
+                {         
+                    flightData.appendText(flight.toString() + "\n");
                 }
+                
             }
 
-            catch (ArrayIndexOutOfBoundsException ex)
+            if (flightData.getText().length() != 0)
             {
-                System.out.println("Error: Index out of bounds");
+                errorMessage.setText("Flights found");
             }
 
-            errorMessage.setText("Searching...");
+            else
+            {
+                errorMessage.setText("No flights found");
+            }
+            
+
 
 
         } catch (NumberFormatException ex)
         {
-            errorMessage.setText("Price entered is not a number");
+            
         }
 
         catch (IllegalArgumentException ex)
         {
-            errorMessage.setText("Invalid max price");
+            if (ex.getMessage().equals("Invalid price"))
+            {
+                maxPriceError.setText("Invalid");
+            }
+
+            errorMessage.setText("Error");
             
         }
 
         catch (NullPointerException ex)
         {
-            System.out.println("Empty fields");
+            errorMessage.setText("Empty fields");
+        }
+
+        catch (ArrayIndexOutOfBoundsException ex)
+        {
+            System.out.println("Error: Index out of bounds");
         }
 
         
@@ -161,7 +204,7 @@ public class Controller
     {
         if (!(priceLim >= 0 && priceLim < Integer.MAX_VALUE))
         {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid price");
         }
 
         return true;
@@ -169,17 +212,7 @@ public class Controller
 
     private boolean validateDates()
     {
-        currentDate = new Date();
-
-        if (departureDate == null || returnDate == null)
-        {
-            return false;
-        }
-
-        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        //String dateToCompare = dateFormat.format(currentDate).toString();
-
-
+        
 
         return true;
     }
