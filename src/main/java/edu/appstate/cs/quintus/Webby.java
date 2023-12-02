@@ -48,15 +48,6 @@ public class Webby
         }
         try
         {
-        WebElement button = driver.findElement(By.className("bBPb-close"));
-        button.click();
-        }
-        catch(Exception e)
-        {
-            System.out.println("Element not found");
-        }
-        try
-        {
         List<WebElement> webFlights = driver.findElements(By.className("nrc6-wrapper"));
        
         for(WebElement webE: webFlights)
@@ -72,8 +63,14 @@ public class Webby
             {
                 price.deleteCharAt(1);
             }
+            String flightUrl = eUrl.attr("href");
+            if(!(flightUrl.charAt(0) == '/'))
+            {
+                flightUrl = "/flights/" + getStartLocation() + "-" 
+                            + getEndLocation() + "/" + getStartDate() + "/" + getEndDate()  + "?sort=price_a";
+            }
             flights.add(new Flight(getStartDate(), getEndDate(), eAirline.get(0).text(), 
-                        Double.parseDouble(price.toString()), eUrl.attr("href")));
+                        Double.parseDouble(price.toString()), flightUrl, eAirline.get(5).text()));
         }
         }
         catch (Exception e)
