@@ -22,6 +22,7 @@ public class App extends Application
 
 
         
+<<<<<<< HEAD
         LinkedList<Flight> flights = new LinkedList<Flight>();
         Input input = new Input();
         //input.setInput("2023-12-14", "10000", "CLT", "NYC");
@@ -97,6 +98,16 @@ public class App extends Application
         }
         Desktop desktop = Desktop.getDesktop();
         desktop.browse(new URI(flights.get(0).getUrl()));
+=======
+        //LinkedList<Flight> flights = new LinkedList<Flight>();
+        //Input input = new Input();
+        //input.setInput("2023-12-14", "10000", "CLT", "NYC");
+        //Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
+        //webby.webbyOneAirline(flights);
+        //Utility.readOneFlights(flights, input);
+        //Desktop desktop = Desktop.getDesktop();
+        //desktop.browse(new URI(flights.get(0).getUrl()));
+>>>>>>> 20529925aaf041a25524cbee2b3b909d53ce3a68
     }
 
     @SuppressWarnings("unused")

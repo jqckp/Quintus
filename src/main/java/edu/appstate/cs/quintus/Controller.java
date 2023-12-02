@@ -6,13 +6,18 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.awt.Desktop;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import net.bytebuddy.asm.Advice.Local;
@@ -41,6 +46,9 @@ public class Controller
     private Button reset;
 
     @FXML
+    private Button goToFlight;
+
+    @FXML
     private TextField departureLocation;
 
     @FXML
@@ -59,7 +67,7 @@ public class Controller
     private DatePicker returnDate;
 
     @FXML
-    private TextArea flightData;
+    private ListView<Flight> flightData;
 
     private LocalDate currentDate = LocalDate.now();
 
@@ -68,6 +76,23 @@ public class Controller
     private String pattern = "yyyy-MM-dd";
 
     private LocalDate destinDate;
+
+    private ObservableList<Flight> flightsToDisplay = FXCollections.observableArrayList();
+    private LinkedList<Flight> flights;
+
+    private LinkedList<Flight> filteredFlightList;
+
+    private Flight selectedItem;
+
+
+    @FXML
+    private void goToFlight()
+    {
+
+        
+
+
+    }
 
     @FXML
     private void clearLocation(ActionEvent e)
@@ -93,19 +118,24 @@ public class Controller
     @FXML
     private void reset(ActionEvent e)
     {
-        flightData.clear();
+        //flightData.clear();
         departureLocation.clear();
         destination.clear();
         maxPrice.clear();
         departureDate.setValue(null);
         returnDate.setValue(null);
+        flightData.getItems().clear();
     }
+
     @FXML
     private void search(ActionEvent e)
     {        
+        filteredFlightList = new LinkedList<>();
+
+
         try
         {
-            flightData.clear();
+            
             int t = 0;
             //double priceLimit = Double.parseDouble(maxPrice.getText()); 
             if(datePickerNull(departureDate, returnDate))
@@ -134,7 +164,7 @@ public class Controller
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
                 String startDate = departDate.format(formatter);
                 String endDate = destinDate.format(formatter);
-                LinkedList<Flight> flights = new LinkedList<Flight>();
+                flights = new LinkedList<Flight>();
                 Input input = new Input();
                 input.setInput(startDate, endDate, maxPrice.getText(), departureLocation.getText(), destination.getText());
                 Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
@@ -152,9 +182,21 @@ public class Controller
                         input.getEndDate().equals(flight.getReturnDate())
                             && Double.parseDouble(input.getCost()) >= flight.getCost())
                     {         
-                        flightData.appendText(flight.toString() + "\n");
+                        filteredFlightList.add(flight);
                     }
                 }
+
+                flightsToDisplay.addAll(filteredFlightList);
+
+                flightData.setItems(flightsToDisplay);
+
+
+
+
+
+
+
+
             }            
         }
 

@@ -40,10 +40,17 @@ public class Input
         setEndLocation(endLocation);
     }
     
-    public void setInput(String startDate, String cost, String startLocation, String endLocation)
+    public void setInput(String startDate, String startLocation, String endLocation)
     {
         setStartDate(startDate);
-        setCost(cost);
+        setStartLocation(startLocation);
+        setEndLocation(endLocation);
+    }
+
+    public void setInput(String startDate, String endDate, String startLocation, String endLocation)
+    {
+        setStartDate(startDate);
+        setEndDate(endDate);
         setStartLocation(startLocation);
         setEndLocation(endLocation);
     }
