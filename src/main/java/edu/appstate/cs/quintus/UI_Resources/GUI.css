@@ -40,6 +40,7 @@
     -fx-control-inner-background: #535151;
     -fx-text-box-border: #000000;
     -fx-text-fill: #ffffff;
+    -fx-border-color: rgb(0, 0, 0);
 
 }
 
@@ -48,6 +49,23 @@
     -fx-border-color: #000000;
     -fx-control-inner-background: #535151;
 }
+
+
+.list-view {
+    -fx-control-inner-background: #535151; /* Default background color */
+    -fx-border-color: rgb(0, 0, 0);
+
+}
+
+.list-view .list-cell:odd {
+    -fx-control-inner-background: #646161; /* Background color for odd rows */
+    -fx-text-fill:#ffffff;
+
+}
+
+
+
+
 
 
 
