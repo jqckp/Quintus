@@ -9,55 +9,112 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" 
+xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.appstate.cs.quintus.Controller" 
+stylesheets="@GUI.css">
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.appstate.cs.quintus.Controller">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#093259" height="345.0" layoutX="14.0" layoutY="30.0" stroke="BLACK" strokeType="INSIDE" width="324.0" />
-      <TextField fx:id="departureLocation" layoutX="21.0" layoutY="75.0" prefHeight="25.0" prefWidth="116.0" />
-      <TextField fx:id="destination" layoutX="155.0" layoutY="75.0" prefHeight="25.0" prefWidth="116.0" />
-      <DatePicker fx:id="departureDate" layoutX="20.0" layoutY="133.0" prefHeight="25.0" prefWidth="116.0" />
-      <DatePicker fx:id="returnDate"  layoutX="156.0" layoutY="133.0" prefHeight="25.0" prefWidth="116.0" />
-      <TextField fx:id="maxPrice" layoutX="155.0" layoutY="188.0" prefHeight="25.0" prefWidth="116.0" />
 
-      <TextArea fx:id="flightData" editable="false" layoutX="352.0" layoutY="28.0" prefHeight="345.0" prefWidth="231.0" />
-      <Button fx:id="locationClear" onAction="#clearLocation" layoutX="287.0" layoutY="75.0" mnemonicParsing="false" text="Clear" />
+  
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#093259" height="440.0" layoutX="14.0" layoutY="30.0" stroke="BLACK" strokeType="INSIDE" width="324.0" />
+
+      <TextField fx:id="departureLocation" styleClass="fieldStyle" layoutX="21.0" layoutY="75.0" prefHeight="25.0" prefWidth="116.0"  />
+      <TextField fx:id="destination" styleClass="fieldStyle" layoutX="155.0" layoutY="75.0" prefHeight="25.0" prefWidth="116.0" />
+      <DatePicker fx:id="departureDate" styleClass="dateSelectStyle" layoutX="21.0" layoutY="175.0" prefHeight="25.0" prefWidth="116.0" />
+      <DatePicker fx:id="returnDate" styleClass="dateSelectStyle" layoutX="155.0" layoutY="175.0" prefHeight="25.0" prefWidth="116.0" />
+      <TextField fx:id="maxPrice" styleClass="fieldStyle" layoutX="156.0" layoutY="275.0" prefHeight="25.0" prefWidth="116.0" />
+
       
-      <Button fx:id="dateClear" onAction="#clearDates" layoutX="287.0" layoutY="133.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="43.0" text="Clear" />
+
+      <Rectangle id="resetButtonShadow" arcHeight="5.0" arcWidth="10.0" height="57.0" layoutX="159.0" layoutY="345.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="116.0"/>
+      <Rectangle id="searchButtonShadow" arcHeight="5.0" arcWidth="10.0" height="57.0" layoutX="25.0" layoutY="345.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="116.0" />
+
+      <Rectangle id="maxPriceClearButtonShadow" arcHeight="5.0" arcWidth="5.0" height="25.0" layoutX="290.0" layoutY="281.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="44.0" />
+      <Rectangle id="dateClearButtonShadow" arcHeight="5.0" arcWidth="5.0" height="25.0" layoutX="290.0" layoutY="181.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="44.0" />
+      <Rectangle id="locationClearButtonShadow" arcHeight="5.0" arcWidth="5.0" height="25.0" layoutX="290.0" layoutY="81.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="44.0" />
+         
+         
+
+
+
+
+      <Button fx:id="search" styleClass="searchResetButtonStyle" onAction="#search" layoutX="21.0" layoutY="338.0" mnemonicParsing="false"  prefHeight="57.0" prefWidth="116.0" text="Search" />
+      <Button fx:id="reset" styleClass="searchResetButtonStyle" onAction="#reset" layoutX="155.0" layoutY="338.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="116.0" text="Reset" />
+
+      <Button fx:id="locationClear" styleClass="clearButtonStyle" onAction="#clearLocation" layoutX="287.0" layoutY="75.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="43.0" text="Clear" />
+      <Button fx:id="dateClear" styleClass="clearButtonStyle" onAction="#clearDates" layoutX="287.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="43.0" text="Clear" />
+      <Button fx:id="priceClear" styleClass="clearButtonStyle" onAction="#clearPrice" layoutX="287.0" layoutY="275.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="43.0" text="Clear" />
+
+      <TextArea fx:id="flightData" styleClass="fieldStyle" editable="false" layoutX="352.0" layoutY="28.0" prefHeight="440.0" prefWidth="435.0" />
+     
+      
+
+     
+     
       
       
-      <Label alignment="CENTER" layoutX="54.0" layoutY="43.0" text="From:" textFill="WHITE">
       
+      <Label text="From:" styleClass="labelStyle" alignment="CENTER" layoutX="54.0" layoutY="48.0" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="200.0" layoutY="43.0" text="To:" textFill="WHITE">
+      <Label text="To:" styleClass="labelStyle" alignment="CENTER" layoutX="200.0" layoutY="48.0" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="32.0" layoutY="102.0" text="Departure:" textFill="WHITE">
+      <Label text="Departure:" styleClass="labelStyle" alignment="CENTER" layoutX="32.0" layoutY="148.0" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="181.0" layoutY="102.0" text="Return:" textFill="WHITE">
+      <Label text="Return:" styleClass="labelStyle" alignment="CENTER" layoutX="181.0" layoutY="148.0" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="34.0" layoutY="186.0" text="Max Price:" textFill="WHITE">
+      <Label text="Max Price:" styleClass="labelStyle" layoutX="34.0" layoutY="275.0" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="priceClear" onAction="#clearPrice" layoutX="287.0" layoutY="189.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="43.0" text="Clear" />
-      <Button fx:id="search" onAction="#search" layoutX="21.0" layoutY="244.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="116.0" text="Search" />
-      <Button fx:id="reset" layoutX="156.0" layoutY="244.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="116.0" text="Reset" />
+     
       
-       <Label fx:id="errorMessage" alignment="CENTER" layoutX="21.0" layoutY="324.0" prefHeight="36.0" prefWidth="253.0" text="Welcome to Quintus!" textFill="WHITE">
+     
+      
+      
+      <Label fx:id="errorMessage" styleClass="labelStyle" text="Quintus" alignment="CENTER" layoutX="20.0" layoutY="410.0" prefHeight="36.0" prefWidth="253.0" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font size="30.0" />
+         </font>
+      </Label>
+
+
+      <Label fx:id="fromError" text="" alignment="CENTER" layoutX="62.0" layoutY="98.0"  textFill="#ff2d2d">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="toError" text="" alignment="CENTER" layoutX="196.0" layoutY="98.0" textFill="#ff2d2d">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="departureError" text="" alignment="CENTER" layoutX="62.0" layoutY="202.0" textFill="#ff2d2d">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="returnErorr" text="" alignment="CENTER" layoutX="196.0" layoutY="202.0" textFill="#ff2d2d">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="maxPriceError" text="" alignment="CENTER" layoutX="196.0" layoutY="297.0" textFill="#ff2d2d">
+         <font>
+            <Font size="15.0" />
          </font>
       </Label>
    </children>
