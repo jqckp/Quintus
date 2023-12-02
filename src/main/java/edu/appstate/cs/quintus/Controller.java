@@ -61,11 +61,11 @@ public class Controller
     @FXML
     private TextArea flightData;
 
-    private String pattern = "yyyy-MM-dd";
-
     private LocalDate currentDate = LocalDate.now();
 
     private LocalDate departDate;
+
+    private String pattern = "yyyy-MM-dd";
 
     private LocalDate destinDate;
 
@@ -110,7 +110,7 @@ public class Controller
             //double priceLimit = Double.parseDouble(maxPrice.getText()); 
             if(datePickerNull(departureDate, returnDate))
             {
-                System.out.println("Please select an date.");
+                System.out.println("Please select a date.");
                 t++;                
             }
             else
@@ -160,7 +160,7 @@ public class Controller
 
         catch (NumberFormatException ex)
         {
-            System.out.println("Enter a number");
+            
         }
 
         catch (IllegalArgumentException ex)
@@ -178,7 +178,7 @@ public class Controller
     {
         if (!(priceLim >= 0 && priceLim < Integer.MAX_VALUE))
         {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid price");
         }
 
         return true;

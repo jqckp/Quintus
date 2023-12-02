@@ -1,6 +1,6 @@
 
 
-.root 
+.root
 {
     -fx-background-image:url('Background.jpg');
     -fx-background-size: cover;
@@ -8,3 +8,48 @@
 
     
 }
+
+.clearButtonStyle
+{
+    
+    -fx-background-size: cover;
+    -fx-background-color: linear-gradient(to bottom left, #474141, #827b7b);
+    -fx-text-fill:"WHITE";
+    -fx-font-family:"Alien Ai";
+    -fx-font-size: 9px;
+
+}
+
+.searchResetButtonStyle
+{
+    -fx-background-size: cover;
+    -fx-background-color: linear-gradient(to bottom right, #827b7b, #474141);
+    -fx-text-fill:"WHITE";
+    -fx-font-family:"Alien Ai";
+    -fx-font-size: 20px;
+}
+
+
+.labelStyle
+{
+    -fx-font-family:"Alien Ai";
+}
+
+.fieldStyle
+{
+    -fx-control-inner-background: #535151;
+    -fx-text-box-border: #000000;
+    -fx-text-fill: #ffffff;
+
+}
+
+.dateSelectStyle
+{
+    -fx-border-color: #000000;
+    -fx-control-inner-background: #535151;
+}
+
+
+
+
+

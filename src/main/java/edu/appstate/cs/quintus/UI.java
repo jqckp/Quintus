@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage; 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -38,7 +39,9 @@ public class UI {
             
             Scene scene = new Scene(root);
 
-            scene.getStylesheets().add(getClass().getResource("UI_Resources/GUI.css").toExternalForm());
+
+            Font.loadFont(getClass().getResourceAsStream("UI_Resources/Alien AI.ttf"), 12);
+
 
             stage.setTitle("Quintus");
 

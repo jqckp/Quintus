@@ -20,6 +20,8 @@ public class App extends Application
     {
         launch(args);
 
+
+        
         LinkedList<Flight> flights = new LinkedList<Flight>();
         Input input = new Input();
         input.setInput("2023-12-14", "10000", "CLT", "NYC");
@@ -62,7 +64,7 @@ public class App extends Application
         desktop.browse(new URI(flights.get(0).getUrl()));
     }
 
-    @SuppressWarnings(value ="unused")
+    
     @Override
     public void start(Stage stage) throws Exception 
     {
