@@ -2,9 +2,11 @@ package edu.appstate.cs.quintus;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.awt.Desktop;
+import java.net.URI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import net.bytebuddy.asm.Advice.Local;
 
 /**
  * Defines functionality of Quintus UI.
@@ -22,8 +25,6 @@ import javafx.scene.control.TextField;
  */
 public class Controller 
 {
-    private static String DATE_PATTERN = "^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/(\\d{4})$";
-
     @FXML
     private Button locationClear;
 
@@ -60,9 +61,13 @@ public class Controller
     @FXML
     private TextArea flightData;
 
-    private Date currentDate;
+    private String pattern = "yyyy-MM-dd";
 
+    private LocalDate currentDate = LocalDate.now();
 
+    private LocalDate departDate;
+
+    private LocalDate destinDate;
 
     @FXML
     private void clearLocation(ActionEvent e)
@@ -77,7 +82,6 @@ public class Controller
     {
         departureDate.setValue(null);
         returnDate.setValue(null);
-
     }
 
     @FXML
@@ -98,52 +102,63 @@ public class Controller
     }
     @FXML
     private void search(ActionEvent e)
-    {
-        
+    {        
         try
         {
             flightData.clear();
-            double priceLimit = Double.parseDouble(maxPrice.getText());
-
-            if (validateMaxPrice(priceLimit) && validateDates())
+            int t = 0;
+            //double priceLimit = Double.parseDouble(maxPrice.getText()); 
+            if(datePickerNull(departureDate, returnDate))
             {
-                System.out.println("Thank you for entering valid price limit");
+                System.out.println("Please select an date.");
+                t++;                
             }
-            
-            LocalDate selectedDate = departureDate.getValue();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String startDate = selectedDate.format(formatter);
-            selectedDate = returnDate.getValue();
-            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String endDate = selectedDate.format(formatter);
-            LinkedList<Flight> flights = new LinkedList<Flight>();
-            Input input = new Input();
-            input.setInput(startDate, endDate, maxPrice.getText(), departureLocation.getText(), destination.getText());
-            Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
-            webby.webbyGo(flights);
-
-            Utility.mergeSortFlights(flights);
-
-
-            Iterator<Flight> itr = flights.iterator();
-
-
-            while (itr.hasNext())
+            else
             {
-                Flight flight = itr.next();
-
-                if(input.getStartDate().equals(flight.getStartDate()) &&
-                    input.getEndDate().equals(flight.getReturnDate())
-                        && Double.parseDouble(input.getCost()) >= flight.getCost())
-                {         
-                    flightData.appendText(flight.toString() + "\n");
+                departDate = departureDate.getValue();
+                destinDate = returnDate.getValue();
+                if(datesNull(departDate, destinDate))
+                {
+                    t++;
+                    System.out.println("Please select an appropriate date.");
                 }
-                
+                else if(datesIncorrect(departDate, destinDate, currentDate))
+                {
+                    t++;
+                    System.out.println("order should be current -> start -> end");
+                }
             }
-        errorMessage.setText("Searching...");
 
+            if(t == 0)
+            {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+                String startDate = departDate.format(formatter);
+                String endDate = destinDate.format(formatter);
+                LinkedList<Flight> flights = new LinkedList<Flight>();
+                Input input = new Input();
+                input.setInput(startDate, endDate, maxPrice.getText(), departureLocation.getText(), destination.getText());
+                Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
+                webby.webbyGo(flights);
 
-        } catch (NumberFormatException ex)
+                Utility.mergeSortFlights(flights);
+
+                Iterator<Flight> itr = flights.iterator();
+
+                while (itr.hasNext())
+                {
+                    Flight flight = itr.next();
+
+                    if(input.getStartDate().equals(flight.getStartDate()) &&
+                        input.getEndDate().equals(flight.getReturnDate())
+                            && Double.parseDouble(input.getCost()) >= flight.getCost())
+                    {         
+                        flightData.appendText(flight.toString() + "\n");
+                    }
+                }
+            }            
+        }
+
+        catch (NumberFormatException ex)
         {
             System.out.println("Enter a number");
         }
@@ -151,24 +166,13 @@ public class Controller
         catch (IllegalArgumentException ex)
         {
             errorMessage.setText("Invalid max price");
-            
         }
 
         catch (NullPointerException ex)
         {
-            System.out.println("Make sure to enter both dates");
-        }
-
-        catch (ArrayIndexOutOfBoundsException ex)
-        {
-            System.out.println("Error: Index out of bounds");
-        }
-
-        
-
-        
+            ex.printStackTrace();
+        }      
     }
-
 
     private boolean validateMaxPrice(double priceLim)
     {
@@ -180,22 +184,19 @@ public class Controller
         return true;
     }
 
-
-    private boolean validateDates()
+    private boolean datePickerNull(DatePicker d1, DatePicker d2)
     {
-        currentDate = new Date();
+        return departureDate == null || returnDate == null;
+    }
 
-        if (departureDate == null || returnDate == null)
-        {
-            return false;
-        }
+    private boolean datesNull(LocalDate l1, LocalDate l2)
+    {
+        return l1 == null || l2 == null;
+    }
 
-        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        //String dateToCompare = dateFormat.format(currentDate).toString();
-
-
-
-        return true;
+    private boolean datesIncorrect(LocalDate start, LocalDate end, LocalDate current)
+    {
+        return current.compareTo(start) > 0 || current.compareTo(end) > 0 || start.compareTo(end) > 0;
     }
 
 }
