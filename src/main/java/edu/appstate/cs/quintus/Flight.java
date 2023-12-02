@@ -39,6 +39,14 @@ public class Flight
         setUrl(url);
     }
 
+    public Flight(String startDate, String dAirline, double cost, String url)
+    {
+        setStartDate(startDate);
+        setDAirline(dAirline);
+        setCost(cost);
+        setUrl(url);
+    }
+
     public Flight(String startDate, String returnDate, String dAirline, double cost, String url, String rAirline)
     {
         setStartDate(startDate);

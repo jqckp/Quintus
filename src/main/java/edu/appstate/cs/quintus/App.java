@@ -14,14 +14,14 @@ public class App extends Application
     */   
     public static void main(String[] args) throws Exception
     {
-        //launch(args);
+        launch(args);
 
         LinkedList<Flight> flights = new LinkedList<Flight>();
         Input input = new Input();
-        input.setInput("2023-12-14", "2023-12-14", "10000", "CLT", "NYC");
+        input.setInput("2023-12-14", "10000", "CLT", "NYC");
         Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
-        webby.webbyGo(flights);
-        Utility.readFlights(flights, input);
+        webby.webbyOneAirline(flights);
+        Utility.readOneFlights(flights, input);
         Desktop desktop = Desktop.getDesktop();
         desktop.browse(new URI(flights.get(0).getUrl()));
     }

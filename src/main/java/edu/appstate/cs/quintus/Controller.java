@@ -138,7 +138,7 @@ public class Controller
                 Input input = new Input();
                 input.setInput(startDate, endDate, maxPrice.getText(), departureLocation.getText(), destination.getText());
                 Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
-                webby.webbyGo(flights);
+                webby.webbyTwoAirline(flights);
 
                 Utility.mergeSortFlights(flights);
 

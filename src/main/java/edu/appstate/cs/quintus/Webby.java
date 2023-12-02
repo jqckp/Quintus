@@ -29,7 +29,59 @@ public class Webby
         
     }
 
-    public void webbyGo(LinkedList<Flight> flights)
+    public void webbyOneAirline(LinkedList<Flight> flights)
+    {
+        String url = "https://www.kayak.com/flights/" + getStartLocation() + "-" 
+                    + getEndLocation() + "/" + getStartDate() + "?sort=price_a";
+        System.out.println(url);
+
+        WebDriver driver = new ChromeDriver();
+        driver.get(url);
+
+        try 
+        {
+            Thread.sleep(5000);
+        } 
+        catch (InterruptedException e) 
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+        List<WebElement> webFlights = driver.findElements(By.className("nrc6-wrapper"));
+       
+        for(WebElement webE: webFlights)
+        {
+            String outerHTML = webE.getAttribute("outerHTML");
+            Document doc = Jsoup.parse(outerHTML);
+            Elements ePrice = doc.getElementsByClass("f8F1-price-text");
+            Elements eAirline = doc.getElementsByClass("c_cgF");
+            Elements eUrl = doc.getElementsByTag("a");String $price = ePrice.get(0).text();
+            StringBuilder price = new StringBuilder($price);
+            price.deleteCharAt(0);
+            if (price.length() > 3)
+            {
+                price.deleteCharAt(1);
+            }
+            String flightUrl = eUrl.attr("href");
+            if(!(flightUrl.charAt(0) == '/'))
+            {
+                flightUrl = "/flights/" + getStartLocation() + "-" 
+                            + getEndLocation() + "/" + getStartDate() + "?sort=price_a";
+            }
+            flights.add(new Flight(getStartDate(), eAirline.get(0).text(), 
+                        Double.parseDouble(price.toString()), flightUrl));
+        }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Element not found");
+        }
+        driver.quit();
+
+    }
+
+    public void webbyTwoAirline(LinkedList<Flight> flights)
     {
         String url = "https://www.kayak.com/flights/" + getStartLocation() + "-" 
                     + getEndLocation() + "/" + getStartDate() + "/" + getEndDate()  + "?sort=price_a";

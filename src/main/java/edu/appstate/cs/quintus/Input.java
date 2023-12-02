@@ -39,6 +39,14 @@ public class Input
         setStartLocation(startLocation);
         setEndLocation(endLocation);
     }
+    
+    public void setInput(String startDate, String cost, String startLocation, String endLocation)
+    {
+        setStartDate(startDate);
+        setCost(cost);
+        setStartLocation(startLocation);
+        setEndLocation(endLocation);
+    }
 
     public void inputGo()
     {
