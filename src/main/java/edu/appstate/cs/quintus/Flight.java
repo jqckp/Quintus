@@ -4,15 +4,16 @@ public class Flight
 {
     private String startDate;
     private String returnDate;
-    private String airline;
+    private String dAirline;
     private double cost;
     private String url;
+    private String rAirline;
 
     public Flight()
     {
         startDate = "";
         returnDate = "";
-        airline = "";
+        dAirline = "";
         cost = 0.0;
     }
 
@@ -21,19 +22,29 @@ public class Flight
         setCost(cost);
     }
 
-    public Flight(String startDate, String returnDate, String airline, double cost)
+    public Flight(String startDate, String returnDate, String dAirline, double cost)
     {
         setStartDate(startDate);
         setReturnDate(returnDate);
-        setAirline(airline);
+        setDAirline(dAirline);
         setCost(cost);
     }
     
-    public Flight(String startDate, String returnDate, String airline, double cost, String url)
+    public Flight(String startDate, String returnDate, String dAirline, double cost, String url)
     {
         setStartDate(startDate);
         setReturnDate(returnDate);
-        setAirline(airline);
+        setDAirline(dAirline);
+        setCost(cost);
+        setUrl(url);
+    }
+
+    public Flight(String startDate, String returnDate, String dAirline, double cost, String url, String rAirline)
+    {
+        setStartDate(startDate);
+        setReturnDate(returnDate);
+        setDAirline(dAirline);
+        setRAirline(rAirline);
         setCost(cost);
         setUrl(url);
     }
@@ -54,9 +65,14 @@ public class Flight
         this.returnDate = returnDate;
     }
 
-    public void setAirline(String airline)
+    public void setDAirline(String dAirline)
     {
-        this.airline = airline;
+        this.dAirline = dAirline;
+    }
+
+    public void setRAirline(String rAirline)
+    {
+        this.rAirline = rAirline;
     }
 
     public void setCost(double cost)
@@ -74,9 +90,14 @@ public class Flight
         return this.returnDate;
     }
 
-    public String getAirline()
+    public String getDAirline()
     {
-        return this.airline;
+        return this.dAirline;
+    }
+
+    public String getRAirline()
+    {
+        return this.rAirline;
     }
 
     public double getCost()
@@ -91,7 +112,7 @@ public class Flight
 
     public String toString()
     {
-        return String.format("Departure Date %s | Return Date %s\nAirline: %s | Cost: %.2f\nURl: %s\n",
-            getStartDate(), getReturnDate(), getAirline(), getCost(), getUrl());
+        return String.format("Departure Date %s | Airline: %s\nReturn Date %s | Airline: %s\nCost: $%.2f\nURl: %s\n",
+            getStartDate(), getDAirline(), getReturnDate(), getRAirline(), getCost(), getUrl());
     }
 }
