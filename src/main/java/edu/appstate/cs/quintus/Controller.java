@@ -89,6 +89,19 @@ public class Controller
     private void goToFlight()
     {
 
+        Flight goTo = flightData.getSelectionModel().getSelectedItem();
+
+        Desktop desktop = Desktop.getDesktop();
+
+        try {
+            desktop.browse(new URI(goTo.getUrl()));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
 
 
@@ -131,6 +144,7 @@ public class Controller
     private void search(ActionEvent e)
     {        
         filteredFlightList = new LinkedList<>();
+        flights = new LinkedList<Flight>();
 
 
         try
@@ -164,7 +178,6 @@ public class Controller
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
                 String startDate = departDate.format(formatter);
                 String endDate = destinDate.format(formatter);
-                flights = new LinkedList<Flight>();
                 Input input = new Input();
                 input.setInput(startDate, endDate, maxPrice.getText(), departureLocation.getText(), destination.getText());
                 Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
