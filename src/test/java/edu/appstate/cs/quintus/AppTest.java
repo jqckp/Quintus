@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class AppTest
 {
@@ -45,6 +47,7 @@ public class AppTest
         LinkedList<Flight> flights = new LinkedList<Flight>();
         Input input = new Input();
         Webby webby;
+        WebDriver driver = new ChromeDriver();
 
         int duration = 0;
 
@@ -71,14 +74,14 @@ public class AppTest
                 input.setInput(date, "CLT", "LAX");
                 
                 webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
-                webby.webbyOneAirline(flights);
+                webby.webbyOneAirline(flights, driver);
 
                 earliest.add(Calendar.DAY_OF_MONTH, 1);
 
                 count++;
 
             }
-
+            driver.quit();
         }
         else
         {
