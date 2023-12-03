@@ -29,18 +29,17 @@ public class Webby
         
     }
 
-    public void webbyOneAirline(LinkedList<Flight> flights)
+    public void webbyOneAirline(LinkedList<Flight> flights, WebDriver driver)
     {
         String url = "https://www.kayak.com/flights/" + getStartLocation() + "-" 
                     + getEndLocation() + "/" + getStartDate() + "?sort=price_a";
         System.out.println(url);
-
-        WebDriver driver = new ChromeDriver();
+        
         driver.get(url);
 
         try 
         {
-            Thread.sleep(5000);
+            Thread.sleep(7000);
         } 
         catch (InterruptedException e) 
         {
@@ -77,17 +76,14 @@ public class Webby
         {
             System.out.println("Element not found");
         }
-        driver.quit();
-
     }
 
-    public void webbyTwoAirline(LinkedList<Flight> flights)
+    public void webbyTwoAirline(LinkedList<Flight> flights, WebDriver driver)
     {
         String url = "https://www.kayak.com/flights/" + getStartLocation() + "-" 
                     + getEndLocation() + "/" + getStartDate() + "/" + getEndDate()  + "?sort=price_a";
         System.out.println(url);
 
-        WebDriver driver = new ChromeDriver();
         driver.get(url);
 
         try 
@@ -129,8 +125,6 @@ public class Webby
         {
             System.out.println("Element not found");
         }
-        driver.quit();
-
     }
 
     public String getStartLocation()
