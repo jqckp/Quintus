@@ -6,6 +6,10 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -154,6 +158,7 @@ public class Controller
         flightData.getItems().clear();
         filteredFlightList = new LinkedList<>();
         flights = new LinkedList<Flight>();
+        WebDriver driver = new ChromeDriver();
         Input input = new Input();
         Webby webby;
 
@@ -220,16 +225,32 @@ public class Controller
                         year = earliest.get(Calendar.YEAR);
                         month = earliest.get(Calendar.MONTH) + 1;
                         day = earliest.get(Calendar.DAY_OF_MONTH);
-                        date = year + "-" + month + "-" + day;
+                        if(month < 10 && day < 10)
+                        {
+                            date = year + "-0" + month + "-0" + day;
+                        }
+                        else if (day < 10)
+                        {
+                            date = year + "-" + month + "-0" + day;
+                        }
+                        else if (month < 10)
+                        {
+                            date = year + "-0" + month + "-" + day;
+                        }
+                        else
+                        {
+                            date = year + "-" + month + "-" + day;
+                        }
 
                         input.setInput(date, departureLocation.getText(), destination.getText());
                 
                         webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
-                        webby.webbyOneAirline(flights);
+                        webby.webbyOneAirline(flights, driver);
 
                         earliest.add(Calendar.DAY_OF_MONTH, 1);
 
                     }
+                    driver.quit();
 
                     Utility.mergeSortFlights(flights);
 
@@ -257,19 +278,54 @@ public class Controller
                         day = earliest.get(Calendar.DAY_OF_MONTH);
                         date = year + "-" + month + "-" + day;
 
+                        if(month < 10 && day < 10)
+                        {
+                            date = year + "-0" + month + "-0" + day;
+                        }
+                        else if (day < 10)
+                        {
+                            date = year + "-" + month + "-0" + day;
+                        }
+                        else if (month < 10)
+                        {
+                            date = year + "-0" + month + "-" + day;
+                        }
+                        else
+                        {
+                            date = year + "-" + month + "-" + day;
+                        }
+
                         year2 = durAdd.get(Calendar.YEAR);
                         month2 = durAdd.get(Calendar.MONTH) + 1;
                         day2 = durAdd.get(Calendar.DAY_OF_MONTH);
                         date2 = year2 + "-" + month2 + "-" + day2;
 
+                        if(month2 < 10 && day2 < 10)
+                        {
+                            date2 = year2 + "-0" + month2 + "-0" + day2;
+                        }
+                        else if (day2 < 10)
+                        {
+                            date2 = year2 + "-" + month2 + "-0" + day2;
+                        }
+                        else if (month2 < 10)
+                        {
+                            date2 = year2 + "-0" + month2 + "-" + day2;
+                        }
+                        else
+                        {
+                            date2 = year2 + "-" + month2 + "-" + day2;
+                        }
+
                         input.setInput(date, date2, departureLocation.getText(), destination.getText());
 
                         webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
-                        webby.webbyTwoAirline(flights);
+                        webby.webbyTwoAirline(flights, driver);
 
                         earliest.add(Calendar.DAY_OF_MONTH, 1);
                         durAdd.add(Calendar.DAY_OF_MONTH, 1);
                     }
+                    driver.quit();
 
                     Utility.mergeSortFlights(flights);
 
