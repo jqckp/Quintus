@@ -2,6 +2,7 @@ package edu.appstate.cs.quintus;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -58,6 +59,9 @@ public class Controller
     private TextField maxPrice;
 
     @FXML
+    private TextField duration;
+
+    @FXML
     private Label errorMessage;
 
     @FXML
@@ -75,9 +79,12 @@ public class Controller
 
     private String pattern = "yyyy-MM-dd";
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
     private LocalDate destinDate;
 
     private ObservableList<Flight> flightsToDisplay = FXCollections.observableArrayList();
+
     private LinkedList<Flight> flights;
 
     private LinkedList<Flight> filteredFlightList;
@@ -88,23 +95,23 @@ public class Controller
     @FXML
     private void goToFlight()
     {
-
         Flight goTo = flightData.getSelectionModel().getSelectedItem();
 
         Desktop desktop = Desktop.getDesktop();
 
-        try {
+        try 
+        {
             desktop.browse(new URI(goTo.getUrl()));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } 
+        catch (IOException e) 
+        {
+            System.out.println("Select Flight");
+        } 
+        catch (URISyntaxException e) 
+        {
+            
+            System.out.println("Select Flight");
         }
-        
-
-
     }
 
     @FXML
@@ -126,30 +133,43 @@ public class Controller
     private void clearPrice(ActionEvent e)
     {
         maxPrice.clear();
+        duration.clear();
     }
 
     @FXML
     private void reset(ActionEvent e)
     {
-        //flightData.clear();
         departureLocation.clear();
         destination.clear();
         maxPrice.clear();
         departureDate.setValue(null);
         returnDate.setValue(null);
         flightData.getItems().clear();
+        duration.clear();
     }
 
     @FXML
     private void search(ActionEvent e)
     {        
+        flightData.getItems().clear();
         filteredFlightList = new LinkedList<>();
         flights = new LinkedList<Flight>();
+        Input input = new Input();
+        Webby webby;
+
+        String date;
+        int year;
+        int month;
+        int day;
+
+        String date2;
+        int year2;
+        int month2;
+        int day2;
 
 
         try
         {
-            
             int t = 0;
             //double priceLimit = Double.parseDouble(maxPrice.getText()); 
             if(datePickerNull(departureDate, returnDate))
@@ -175,40 +195,103 @@ public class Controller
 
             if(t == 0)
             {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+                int dur = Integer.parseInt(duration.getText());
+                input.setCost(maxPrice.getText());
                 String startDate = departDate.format(formatter);
                 String endDate = destinDate.format(formatter);
-                Input input = new Input();
-                input.setInput(startDate, endDate, maxPrice.getText(), departureLocation.getText(), destination.getText());
-                Webby webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
-                webby.webbyTwoAirline(flights);
+                String[] startDateArr = startDate.split("-");
+                String[] endDateArr = endDate.split("-");
 
-                Utility.mergeSortFlights(flights);
+                Calendar earliest = Calendar.getInstance();
+                earliest.set(Integer.parseInt(startDateArr[0]), Integer.parseInt(startDateArr[1]) - 1,
+                            Integer.parseInt(startDateArr[2]));
+                Calendar latest  = Calendar.getInstance();
+                latest.set(Integer.parseInt(endDateArr[0]), Integer.parseInt(endDateArr[1]) - 1,
+                            Integer.parseInt(endDateArr[2]));
+                Calendar durAdd = Calendar.getInstance();
+                durAdd.set(Integer.parseInt(startDateArr[0]), Integer.parseInt(startDateArr[1]) - 1,
+                            Integer.parseInt(startDateArr[2]));
+                durAdd.add(Calendar.DAY_OF_MONTH, dur);
 
-                Iterator<Flight> itr = flights.iterator();
-
-                while (itr.hasNext())
+                if(dur == 0)
                 {
-                    Flight flight = itr.next();
+                    while(earliest.compareTo(latest) <= 0)
+                    {
+                        year = earliest.get(Calendar.YEAR);
+                        month = earliest.get(Calendar.MONTH) + 1;
+                        day = earliest.get(Calendar.DAY_OF_MONTH);
+                        date = year + "-" + month + "-" + day;
 
-                    if(input.getStartDate().equals(flight.getStartDate()) &&
-                        input.getEndDate().equals(flight.getReturnDate())
-                            && Double.parseDouble(input.getCost()) >= flight.getCost())
-                    {         
-                        filteredFlightList.add(flight);
+                        input.setInput(date, departureLocation.getText(), destination.getText());
+                
+                        webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
+                        webby.webbyOneAirline(flights);
+
+                        earliest.add(Calendar.DAY_OF_MONTH, 1);
+
+                    }
+
+                    Utility.mergeSortFlights(flights);
+
+
+                    Iterator<Flight> itr = flights.iterator();
+
+
+                    while (itr.hasNext())
+                    {
+                        Flight flight = itr.next();
+
+                        if(Double.parseDouble(input.getCost()) >= flight.getCost())
+                        {         
+                            filteredFlightList.add(flight);
+                        }
+                
+                    }
+                }
+                else
+                {
+                    while(durAdd.compareTo(latest) <= 0)
+                    {
+                        year = earliest.get(Calendar.YEAR);
+                        month = earliest.get(Calendar.MONTH) + 1;
+                        day = earliest.get(Calendar.DAY_OF_MONTH);
+                        date = year + "-" + month + "-" + day;
+
+                        year2 = durAdd.get(Calendar.YEAR);
+                        month2 = durAdd.get(Calendar.MONTH) + 1;
+                        day2 = durAdd.get(Calendar.DAY_OF_MONTH);
+                        date2 = year2 + "-" + month2 + "-" + day2;
+
+                        input.setInput(date, date2, departureLocation.getText(), destination.getText());
+
+                        webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
+                        webby.webbyTwoAirline(flights);
+
+                        earliest.add(Calendar.DAY_OF_MONTH, 1);
+                        durAdd.add(Calendar.DAY_OF_MONTH, 1);
+                    }
+
+                    Utility.mergeSortFlights(flights);
+
+
+                    Iterator<Flight> itr = flights.iterator();
+
+
+                    while (itr.hasNext())
+                    {
+                        Flight flight = itr.next();
+
+                        if(Double.parseDouble(input.getCost()) >= flight.getCost())
+                        {         
+                            filteredFlightList.add(flight);
+                        }
+                
                     }
                 }
 
                 flightsToDisplay.addAll(filteredFlightList);
 
                 flightData.setItems(flightsToDisplay);
-
-
-
-
-
-
-
 
             }            
         }
@@ -225,7 +308,7 @@ public class Controller
 
         catch (NullPointerException ex)
         {
-            ex.printStackTrace();
+            System.out.println("null");
         }      
     }
 
