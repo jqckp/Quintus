@@ -57,12 +57,6 @@ public class UI {
         } catch (IOException e)
         {
             e.printStackTrace();
-        }
-            
+        }         
     }
-
-    
-
-
-
 }

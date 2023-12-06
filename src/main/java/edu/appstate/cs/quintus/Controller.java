@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
+import java.util.ResourceBundle;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,12 +15,15 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -33,7 +37,7 @@ import net.bytebuddy.asm.Advice.Local;
  * @author Jack Porter
  * @version 11/27/2023
  */
-public class Controller 
+public class Controller implements Initializable
 {
     @FXML
     private Button locationClear;
@@ -52,6 +56,12 @@ public class Controller
 
     @FXML
     private Button goToFlight;
+
+    @FXML
+    private ComboBox<String> autoBox1;
+
+    @FXML
+    private ComboBox<String> autoBox2;
 
     @FXML
     private TextField departureLocation;
@@ -89,13 +99,84 @@ public class Controller
 
     private ObservableList<Flight> flightsToDisplay = FXCollections.observableArrayList();
 
+    private ObservableList<String> locationsToDisplay;
+
     private LinkedList<Flight> flights;
 
     private LinkedList<Flight> filteredFlightList;
 
     private Flight selectedItem;
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        setPossibleLocations();
+        autoBox1.setVisibleRowCount(5);
+        autoBox2.setVisibleRowCount(5);
+        autoBox1.setVisible(false);
+        autoBox2.setVisible(false);
 
+        departureLocation.textProperty().addListener((observable, oldValue, newValue) -> 
+        {
+            if (!newValue.isEmpty()) 
+            {
+                ObservableList<String> filteredData = FXCollections.observableArrayList();
+                for (String item : locationsToDisplay) 
+                {
+                    if (item.toLowerCase().contains(newValue.toLowerCase())) 
+                    {
+                        filteredData.add(item);
+                    }
+                }
+                autoBox1.setItems(filteredData);
+                autoBox1.show();
+            } 
+            else 
+            {
+                autoBox1.hide();
+            }
+        });
+
+        destination.textProperty().addListener((observable, oldValue, newValue) -> 
+        {
+            if (!newValue.isEmpty()) 
+            {
+                ObservableList<String> filteredData = FXCollections.observableArrayList();
+                for (String item : locationsToDisplay) 
+                {
+                    if (item.toLowerCase().contains(newValue.toLowerCase())) 
+                    {
+                        filteredData.add(item);
+                    }
+                }
+                autoBox2.setItems(filteredData);
+                autoBox2.show();
+            } 
+            else 
+            {
+                autoBox1.hide();
+            }
+        });
+
+        autoBox1.setOnAction(event -> {
+            String selectedValue = autoBox1.getSelectionModel().getSelectedItem();
+            if (selectedValue != null) 
+            {
+                departureLocation.setText(selectedValue);
+                autoBox1.hide();
+            }
+        });
+
+        autoBox2.setOnAction(event -> {
+            String selectedValue = autoBox2.getSelectionModel().getSelectedItem();
+            if (selectedValue != null) 
+            {
+                destination.setText(selectedValue);
+                autoBox2.hide();
+            }
+        });
+    }
+    
     @FXML
     private void goToFlight()
     {
@@ -113,7 +194,6 @@ public class Controller
         } 
         catch (URISyntaxException e) 
         {
-            
             System.out.println("Select Flight");
         }
     }
@@ -123,7 +203,8 @@ public class Controller
     {
         departureLocation.clear();
         destination.clear();
-
+        autoBox1.hide();
+        autoBox2.hide();
     }
 
     @FXML
@@ -393,4 +474,12 @@ public class Controller
         return current.compareTo(start) > 0 || current.compareTo(end) > 0 || start.compareTo(end) > 0;
     }
 
+    private void setPossibleLocations()
+    {
+        locationsToDisplay = FXCollections.observableArrayList();
+        for(AirportCode loc : AirportCode.values())
+        {
+            locationsToDisplay.add(loc.getLocation());
+        }
+    }
 }

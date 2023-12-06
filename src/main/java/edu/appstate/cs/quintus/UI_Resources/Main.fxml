@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" stylesheets="@GUI.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.appstate.cs.quintus.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" stylesheets="@GUI.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.appstate.cs.quintus.Controller">
 
    <children>
 
@@ -17,7 +18,7 @@
       <Rectangle id="mainContainer" arcHeight="5.0" arcWidth="5.0" fill="#093259" height="440.0" layoutX="14.0" layoutY="30.0" stroke="BLACK" strokeType="INSIDE" width="324.0" />
       <Rectangle id="searchContainer" arcHeight="5.0" arcWidth="5.0" fill="#093259" height="57.0" layoutX="352.0" layoutY="413.0" stroke="BLACK" strokeType="INSIDE" width="435.0" />
 
-      <TextField fx:id="departureLocation" layoutX="21.0" layoutY="75.0" prefHeight="25.0" prefWidth="116.0" styleClass="fieldStyle" />
+      <TextField fx:id="departureLocation" layoutX="25.0" layoutY="75.0" prefHeight="25.0" prefWidth="116.0" styleClass="fieldStyle" />
       <TextField fx:id="destination" layoutX="155.0" layoutY="75.0" prefHeight="25.0" prefWidth="116.0" styleClass="fieldStyle" />
       <DatePicker fx:id="departureDate" layoutX="21.0" layoutY="175.0" prefHeight="25.0" prefWidth="116.0" styleClass="dateSelectStyle" />
       <DatePicker fx:id="returnDate" layoutX="155.0" layoutY="175.0" prefHeight="25.0" prefWidth="116.0" styleClass="dateSelectStyle" />
@@ -48,10 +49,10 @@
       <Button fx:id="dateClear" layoutX="287.0" layoutY="175.0" mnemonicParsing="false" onAction="#clearDates" prefHeight="25.0" prefWidth="43.0" styleClass="clearButtonStyle" text="Clear" />
       <Button fx:id="priceClear" layoutX="287.0" layoutY="275.0" mnemonicParsing="false" onAction="#clearPrice" prefHeight="25.0" prefWidth="43.0" styleClass="clearButtonStyle" text="Clear" />
 
-      <Button fx:id="goToFlight" onAction="#goToFlight" layoutX="575.0" layoutY="419.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="194.0" styleClass="searchResetButtonStyle" text="Go To Flight" />
+      <Button fx:id="goToFlight" layoutX="575.0" layoutY="419.0" mnemonicParsing="false" onAction="#goToFlight" prefHeight="44.0" prefWidth="194.0" styleClass="searchResetButtonStyle" text="Go To Flight" />
 
       
-      <ListView fx:id="flightData" styleClass ="listView" layoutX="352.0" layoutY="30.0" prefHeight="371.0" prefWidth="435.0"  />
+      <ListView fx:id="flightData" layoutX="352.0" layoutY="30.0" prefHeight="371.0" prefWidth="435.0" styleClass="listView" />
      
       
       <Label alignment="CENTER" layoutX="60.0" layoutY="48.0" styleClass="labelStyle" text="From:" textFill="WHITE">
@@ -133,6 +134,8 @@
             <Font size="15.0" />
          </font>
       </Label>
+      <ComboBox fx:id="autoBox1" layoutX="25.0" layoutY="75.0" prefHeight="26.0" prefWidth="116.0" />
+      <ComboBox fx:id="autoBox2" layoutX="156.0" layoutY="74.0" prefHeight="26.0" prefWidth="116.0" />
       
       
       

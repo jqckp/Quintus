@@ -15,26 +15,10 @@ public class Airport
     {
         //Airport airport = new Airport();
         //airport.airportGo();
-
-        int i = 0;
-        String loc = "Boulder, CO";
-
-        for(AirportCode c: AirportCode.values()) 
-        {
-            if(loc == c.getLocation())
-            {
-                System.out.println(c.getCode());
-                i++;
-            }            
-        }
-        if(i == 0)
-        {
-            System.out.println("There wasn't any city named like what you typed in...sorry uwu");
-        }
     }
 
     /**
-     * Created and used this methods to make a list of airport locations and their corresponding codes
+     * Created and used this method to make a list of airport locations and their corresponding codes
      * in the airport_codes.txt file. Did this to create an enum class. If you want to change airport_codes.txt again,
      * then you need to change the pathname and delete what as ever in airport_codes.txt in the first place.
      */
