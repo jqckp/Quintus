@@ -1,5 +1,11 @@
 package edu.appstate.cs.quintus;
 
+/**
+ * Used to store data on each airport's code, country and location.
+ * 
+ * @author Dattasai Sagili
+ * @version 12/06/2023
+ */
 public enum AirportCode 
 {
     Aalborg("AAL", "Denmark", "Aalborg"), 

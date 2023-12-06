@@ -34,8 +34,8 @@ import net.bytebuddy.asm.Advice.Local;
 /**
  * Defines functionality of Quintus UI.
  * 
- * @author Jack Porter
- * @version 11/27/2023
+ * @author Jack Porter, Dattasai Sagili
+ * @version 12/06/2023
  */
 public class Controller implements Initializable
 {
@@ -96,6 +96,10 @@ public class Controller implements Initializable
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
     private LocalDate destinDate;
+
+    private String departCode;
+
+    private String destinCode;
 
     private ObservableList<Flight> flightsToDisplay = FXCollections.observableArrayList();
 
@@ -281,6 +285,9 @@ public class Controller implements Initializable
 
             if(t == 0)
             {
+                departCode = gettingCode(departureLocation.getText());
+                destinCode = gettingCode(destination.getText());
+                
                 int dur = Integer.parseInt(duration.getText());
                 input.setCost(maxPrice.getText());
                 String startDate = departDate.format(formatter);
@@ -323,7 +330,7 @@ public class Controller implements Initializable
                             date = year + "-" + month + "-" + day;
                         }
 
-                        input.setInput(date, departureLocation.getText(), destination.getText());
+                        input.setInput(date, departCode, destinCode);
                 
                         webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
                         webby.webbyOneAirline(flights, driver);
@@ -398,7 +405,7 @@ public class Controller implements Initializable
                             date2 = year2 + "-" + month2 + "-" + day2;
                         }
 
-                        input.setInput(date, date2, departureLocation.getText(), destination.getText());
+                        input.setInput(date, date2, departCode, destinCode);
 
                         webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
                         webby.webbyTwoAirline(flights, driver);
@@ -481,5 +488,18 @@ public class Controller implements Initializable
         {
             locationsToDisplay.add(loc.getLocation());
         }
+    }
+
+    private String gettingCode(String input)
+    {
+        String output = "";
+        for(AirportCode cod : AirportCode.values())
+        {
+            if (input.equals(cod.getLocation()))
+            {
+                output = cod.getCode();
+            }
+        }
+        return output;
     }
 }
