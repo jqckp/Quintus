@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 import org.openqa.selenium.WebDriver;
@@ -29,7 +28,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import net.bytebuddy.asm.Advice.Local;
 
 /**
  * Defines functionality of Quintus UI.
@@ -74,6 +72,12 @@ public class Controller implements Initializable
 
     @FXML
     private TextField duration;
+
+    @FXML
+    private Label dateError;
+
+    @FXML
+    private Label numberError;
 
     @FXML
     private Label errorMessage;
@@ -158,7 +162,7 @@ public class Controller implements Initializable
             } 
             else 
             {
-                autoBox1.hide();
+                autoBox2.hide();
             }
         });
 
@@ -216,6 +220,7 @@ public class Controller implements Initializable
     {
         departureDate.setValue(null);
         returnDate.setValue(null);
+        dateError.setText("");
     }
 
     @FXML
@@ -223,6 +228,7 @@ public class Controller implements Initializable
     {
         maxPrice.clear();
         duration.clear();
+        numberError.setText("");
     }
 
     @FXML
@@ -260,11 +266,12 @@ public class Controller implements Initializable
 
         try
         {
-            int t = 0;
-            //double priceLimit = Double.parseDouble(maxPrice.getText()); 
+            dateError.setText("");;
+            numberError.setText("");
+            int t = 0; 
             if(datePickerNull(departureDate, returnDate))
             {
-                System.out.println("Please select a date.");
+                dateError.setText("Please select a date.");
                 t++;                
             }
             else
@@ -274,13 +281,18 @@ public class Controller implements Initializable
                 if(datesNull(departDate, destinDate))
                 {
                     t++;
-                    System.out.println("Please select an appropriate date.");
+                    dateError.setText("Please select an appropriate date.");
                 }
                 else if(datesIncorrect(departDate, destinDate, currentDate))
                 {
                     t++;
-                    System.out.println("order should be current -> start -> end");
+                    dateError.setText("Order should be current -> start -> end");
                 }
+            }
+            if(!(isNumberValid(maxPrice.getText()) && isNumberValid(duration.getText())))
+            {
+                t++;
+                numberError.setText("Enter in a valid number please.");
             }
 
             if(t == 0)
@@ -436,34 +448,25 @@ public class Controller implements Initializable
                 flightsToDisplay.addAll(filteredFlightList);
 
                 flightData.setItems(flightsToDisplay);
-
             }            
         }
-
-        catch (NumberFormatException ex)
-        {
-            
-        }
-
-        catch (IllegalArgumentException ex)
-        {
-            errorMessage.setText("Invalid max price");
-        }
-
         catch (NullPointerException ex)
         {
             System.out.println("null");
         }      
     }
 
-    private boolean validateMaxPrice(double priceLim)
+    private boolean isNumberValid(String input)
     {
-        if (!(priceLim >= 0 && priceLim < Integer.MAX_VALUE))
+        try
         {
-            throw new IllegalArgumentException("Invalid price");
+            double number = Double.parseDouble(input);
+            return number >= 0 && number < 100000;            
         }
-
-        return true;
+        catch (NumberFormatException ex)
+        {
+            return false;            
+        }
     }
 
     private boolean datePickerNull(DatePicker d1, DatePicker d2)

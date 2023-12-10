@@ -113,19 +113,14 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="departureError" alignment="CENTER" layoutX="62.0" layoutY="202.0" text="" textFill="#ff2d2d">
+      <Label fx:id="dateError" alignment="CENTER" layoutX="24.0" layoutY="202.0" prefHeight="22.0" prefWidth="247.0" text="" textFill="#ff2d2d">
          <font>
-            <Font size="15.0" />
+            <Font size="8.0" />
          </font>
       </Label>
-      <Label fx:id="returnErorr" alignment="CENTER" layoutX="196.0" layoutY="202.0" text="" textFill="#ff2d2d">
+      <Label fx:id="numberError" alignment="CENTER" layoutX="23.0" layoutY="297.0" prefHeight="22.0" prefWidth="247.0" text="" textFill="#ff2d2d">
          <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="maxPriceError" alignment="CENTER" layoutX="196.0" layoutY="297.0" text="" textFill="#ff2d2d">
-         <font>
-            <Font size="15.0" />
+            <Font size="8.0" />
          </font>
       </Label>
       
