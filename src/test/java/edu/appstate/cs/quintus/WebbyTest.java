@@ -75,6 +75,9 @@ public class WebbyTest
         earliest.add(Calendar.DAY_OF_MONTH, 10);
         Calendar lateist = Calendar.getInstance();
         lateist.add(Calendar.DAY_OF_MONTH, 12);
+        Calendar durAdd = Calendar.getInstance();
+        durAdd.set(earliest.get(Calendar.YEAR), earliest.get(Calendar.MONTH), earliest.get(Calendar.DAY_OF_MONTH));
+        durAdd.add(Calendar.DAY_OF_MONTH, duration);
 
         String date;
         int year;
@@ -82,21 +85,27 @@ public class WebbyTest
         int day;
 
         int count = 0;
-        if (duration == 0)
+        if (duration != 0)
         {
-            while(earliest.compareTo(lateist) <= 0)
+            while(durAdd.compareTo(lateist) <= 0)
             {
                 year = earliest.get(Calendar.YEAR);
                 month = earliest.get(Calendar.MONTH) + 1;
                 day = earliest.get(Calendar.DAY_OF_MONTH);
                 date = year + "-" + month + "-" + day;
 
-                input.setInput(date, "CLT", "LAX");
+                int year2 = durAdd.get(Calendar.YEAR);
+                int month2 = durAdd.get(Calendar.MONTH) + 1;
+                int day2 = durAdd.get(Calendar.DAY_OF_MONTH);
+                String date2 = year2 + "-" + month2 + "-" + day2;
+
+                input.setInput(date, date2, "CLT", "LAX");
                 
                 webby = new Webby(input.getStartLocation(), input.getEndLocation(), input.getStartDate(), input.getEndDate());
-                webby.webbyOneAirline(flights, driver);
+                webby.webbyTwoAirline(flights, driver);
 
                 earliest.add(Calendar.DAY_OF_MONTH, 1);
+                durAdd.add(Calendar.DAY_OF_MONTH, 1);
 
                 count++;
 
