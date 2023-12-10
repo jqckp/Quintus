@@ -58,7 +58,7 @@ public class WebbyTest
             System.out.println("duration wasn't zero");
         }
 
-        assertEquals(3, count, "While loop did not run the expected amount");
+        assertEquals(3, count, "While loop did not run the expected amount for a one way trip");
     }
 
     @Test
@@ -108,7 +108,7 @@ public class WebbyTest
             System.out.println("duration wasn't zero");
         }
 
-        assertEquals(2, count, "While loop did not run the expected amount");
+        assertEquals(2, count, "While loop did not run the expected amount for a round trip of 1 day");
     }
 
 }

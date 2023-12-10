@@ -40,6 +40,5 @@ public class AppTest
         assertEquals(500.0, flights.get(2).getCost(), "Third node is out of order");
         assertEquals(700.0, flights.get(3).getCost(), "Fourth node is out of order");
     }
-    }
 
 }
