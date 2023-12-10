@@ -9,6 +9,10 @@ public class Flight
     private String url;
     private String rAirline;
 
+    /**
+     * no-args constructor
+     * 
+     */
     public Flight()
     {
         startDate = "";
@@ -17,11 +21,24 @@ public class Flight
         cost = 0.0;
     }
 
+    /**
+     * Constructor setting cost field only 
+     * 
+     * @param cost cost of the flight
+     */
     public Flight(double cost)
     {
         setCost(cost);
     }
 
+    /**
+     * Constructor setting all fields, except url
+     * 
+     * @param startDate 
+     * @param returnDate
+     * @param dAirline
+     * @param cost
+     */
     public Flight(String startDate, String returnDate, String dAirline, double cost)
     {
         setStartDate(startDate);
@@ -30,6 +47,14 @@ public class Flight
         setCost(cost);
     }
     
+    /**
+     * 
+     * @param startDate
+     * @param returnDate
+     * @param dAirline
+     * @param cost
+     * @param url
+     */
     public Flight(String startDate, String returnDate, String dAirline, double cost, String url)
     {
         setStartDate(startDate);
@@ -118,6 +143,11 @@ public class Flight
         return "https://www.kayak.com" + url;
     }
 
+    /**
+     * ToSting method
+     * 
+     * @return data of flight in string format
+     */
     public String toString()
     {
         if(getReturnDate() == null)
