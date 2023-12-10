@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 import org.openqa.selenium.WebDriver;
@@ -27,9 +26,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import net.bytebuddy.asm.Advice.Local;
+
 
 /**
  * Defines functionality of Quintus UI.
@@ -109,9 +107,13 @@ public class Controller implements Initializable
 
     private LinkedList<Flight> filteredFlightList;
 
-    private Flight selectedItem;
-
     @Override
+    /**
+     * Sets options for location combo boxes and filters results as user types.
+     * 
+     * @param url - unused.
+     * @param rb - unused.
+     */
     public void initialize(URL url, ResourceBundle rb)
     {
         setPossibleLocations();
@@ -182,6 +184,9 @@ public class Controller implements Initializable
     }
     
     @FXML
+    /**
+     * Takes user to flight booking website on click of goToFlight button.
+     */
     private void goToFlight()
     {
         Flight goTo = flightData.getSelectionModel().getSelectedItem();
@@ -203,6 +208,10 @@ public class Controller implements Initializable
     }
 
     @FXML
+    /**
+     * Clears location combo boxes.
+     * @param e - Button press.
+     */
     private void clearLocation(ActionEvent e)
     {
         departureLocation.clear();
@@ -212,6 +221,10 @@ public class Controller implements Initializable
     }
 
     @FXML
+    /**
+     * Clears date pickers for depart and return dates.
+     * @param e - Button press.
+     */
     private void clearDates(ActionEvent e)
     {
         departureDate.setValue(null);
@@ -219,6 +232,10 @@ public class Controller implements Initializable
     }
 
     @FXML
+    /**
+     * Clears price and duration text fields.
+     * @param e - Button press.
+     */
     private void clearPrice(ActionEvent e)
     {
         maxPrice.clear();
@@ -226,6 +243,10 @@ public class Controller implements Initializable
     }
 
     @FXML
+    /**
+     * Resets all input fields and previous output.
+     * @param e - Button press.
+     */
     private void reset(ActionEvent e)
     {
         departureLocation.clear();
@@ -238,6 +259,10 @@ public class Controller implements Initializable
     }
 
     @FXML
+    /**
+     * Searches for flights within user defined parameters.
+     * @param e - Button press.
+     */
     private void search(ActionEvent e)
     {        
         flightData.getItems().clear();
@@ -456,6 +481,11 @@ public class Controller implements Initializable
         }      
     }
 
+    /**
+     * Checks max price input by user to test validity.
+     * @param priceLim - max price.
+     * @return - valid price?
+     */
     private boolean validateMaxPrice(double priceLim)
     {
         if (!(priceLim >= 0 && priceLim < Integer.MAX_VALUE))
@@ -466,21 +496,44 @@ public class Controller implements Initializable
         return true;
     }
 
+    /**
+     * Checks to make sure date picker objects are not null.
+     * @param d1 - Start date.
+     * @param d2 - End date.
+     * @return - Valid dates?
+     */
     private boolean datePickerNull(DatePicker d1, DatePicker d2)
     {
         return departureDate == null || returnDate == null;
     }
 
+    /**
+     * Checks to make sure local date objects not null.
+     * @param l1 - Start date.
+     * @param l2 - End date.
+     * @return - Is either local date object null?
+     */
     private boolean datesNull(LocalDate l1, LocalDate l2)
     {
         return l1 == null || l2 == null;
     }
 
+    /**
+     * Checks to make sure return date is after depart date, dates are in future.
+     * @param start - Start date.
+     * @param end - End date.
+     * @param current - Today's date.
+     * @return - Valid dates?
+     */
     private boolean datesIncorrect(LocalDate start, LocalDate end, LocalDate current)
     {
         return current.compareTo(start) > 0 || current.compareTo(end) > 0 || start.compareTo(end) > 0;
     }
 
+
+    /**
+     * Adds all locations of AirportCode enum to possible location choices for user.
+     */
     private void setPossibleLocations()
     {
         locationsToDisplay = FXCollections.observableArrayList();
@@ -490,6 +543,11 @@ public class Controller implements Initializable
         }
     }
 
+    /**
+     * Gets corresponding airport code from user selected city.
+     * @param input - City selected by user.
+     * @return - Corresponding airport code.
+     */
     private String gettingCode(String input)
     {
         String output = "";
