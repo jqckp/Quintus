@@ -1492,6 +1492,13 @@ public enum AirportCode
     private String country;
     private String location;
 
+    /**
+     * Constructor for enum class
+     * 
+     * @param code Code of that airport.
+     * @param country Country where that airport is located.
+     * @param location City where airport is located.
+     */
     AirportCode(String code, String country, String location)
     {
         this.code = code;
@@ -1499,16 +1506,31 @@ public enum AirportCode
         this.location = location;
     }
 
+    /**
+     * Gives code of an AirportCode class.
+     * 
+     * @return the code of the respective class.
+     */
     public String getCode() 
     {
         return code;
     }
 
+    /**
+     * Gives country of an AirportCode class.
+     * 
+     * @return the country of the respective class.
+     */
     public String getCountry()
     {
         return country;
     }
 
+    /**
+     * Gives city of an AirportCode class.
+     * 
+     * @return the city of the respective class.
+     */
     public String getLocation()
     {
         return location;

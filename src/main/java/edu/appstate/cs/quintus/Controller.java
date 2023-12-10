@@ -483,6 +483,11 @@ public class Controller implements Initializable
         }      
     }
 
+    /**
+     * Checks to make sure numbers entered in maxPrice and duration are valid inputs.
+     * @param input - String entered from maxPrica and duration TextFields.
+     * @return - true if valid number, false if not valid.
+     */
     private boolean isNumberValid(String input)
     {
         try
