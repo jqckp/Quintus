@@ -494,8 +494,8 @@ public enum AirportCode
     Halifax_NS("YHZ", "Canada", "Halifax, NS"),
     Halmstad("HAD", "Sweden", "Halmstad"), 
     Hamburg("HAM", "Germany", "Hamburg"), 
-    Hamilton1("BDA", "Bermuda", "Hamilton"), 
-    Hamilton2("HLZ", "New Zealand", "Hamilton"), 
+    Hamilton1("BDA", "Bermuda", "Hamilton (Bermuda)"), 
+    Hamilton2("HLZ", "New Zealand", "Hamilton (New Zealand)"), 
     Hamilton_Island_Whitsunday_Island_QLD("HTI", "Australia", "Hamilton Island, Whitsunday Island, Qld"), 
     Hamilton_ON("YHM", "Canada", "Hamilton, ON"), 
     Hammerfest("HFT", "Norway", "Hammerfest"), 
@@ -573,7 +573,7 @@ public enum AirportCode
     Islamabad_Rawalpindi("ISB", "Pakistan", "Islamabad-Rawalpindi"), 
     Islay_Island("ILY", "Scotland", "Islay Island"), 
     Islip_NY("ISP", "USA", "Islip, NY"), 
-    Istanbul1("IST", "Turkey", "Istanbul (New Istanbul)"), 
+    Istanbul1("IST", "Turkey", "Istanbul (Istanbul Airport)"), 
     Istanbul2("SAW", "Turkey", "Istanbul (Sabiha Gokcen)"), 
     Ithaca_NY("ITH", "USA", "Ithaca, NY"), 
     Ivalo("IVL", "Finland", "Ivalo"), 
@@ -1377,7 +1377,7 @@ public enum AirportCode
     Ubon_Ratchathani("UBP", "Thailand", "Ubon Ratchathani"), 
     Udon_Thani("UTH", "Thailand", "Udon Thani"), 
     Ujung_Pandang_Sulawesi("UPG", "Indonesia", "Ujung Pandang, Sulawesi"), 
-    Ulan_Bator("ULN", "Mongolia", "Ulan Bator"), 
+    Ulaanbaatar("ULN", "Mongolia", "Ulaanbaatar"), 
     Umea("UME", "Sweden", "Umea"), 
     Una("UNA", "Brazil", "Una"), 
     Unalakleet_AK("UNK", "USA", "Unalakleet, AK"), 
@@ -1492,6 +1492,13 @@ public enum AirportCode
     private String country;
     private String location;
 
+    /**
+     * Constructor for enum class
+     * 
+     * @param code Code of that airport.
+     * @param country Country where that airport is located.
+     * @param location City where airport is located.
+     */
     AirportCode(String code, String country, String location)
     {
         this.code = code;
@@ -1499,16 +1506,31 @@ public enum AirportCode
         this.location = location;
     }
 
+    /**
+     * Gives code of an AirportCode class.
+     * 
+     * @return the code of the respective class.
+     */
     public String getCode() 
     {
         return code;
     }
 
+    /**
+     * Gives country of an AirportCode class.
+     * 
+     * @return the country of the respective class.
+     */
     public String getCountry()
     {
         return country;
     }
 
+    /**
+     * Gives city of an AirportCode class.
+     * 
+     * @return the city of the respective class.
+     */
     public String getLocation()
     {
         return location;
