@@ -1,6 +1,10 @@
 package edu.appstate.cs.quintus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6f0168e2cb8fed5870e9a3b1c344b182b57ab563
 import java.util.LinkedList;
 import org.junit.jupiter.api.Test;
 
