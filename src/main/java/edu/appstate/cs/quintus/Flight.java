@@ -152,10 +152,10 @@ public class Flight
     {
         if(getReturnDate() == null)
         {
-            return String.format("Departure Date %s | Airline: %s\nReturn Date None | Airline: None\nCost: $%.2f",
+            return String.format("Depart Date %s | Airline: %s\nReturn Date None | Airline: None\nCost: $%.2f",
                 getStartDate(), getDAirline(), getCost(), getUrl());
         }
-        return String.format("Departure Date %s | Airline: %s\nReturn Date %s | Airline: %s\nCost: $%.2f",
+        return String.format("Depart Date %s | Airline: %s\nReturn Date %s | Airline: %s\nCost: $%.2f",
             getStartDate(), getDAirline(), getReturnDate(), getRAirline(), getCost(), getUrl());
     }
 }
